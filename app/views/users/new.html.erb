@@ -1,6 +1,6 @@
 <h1>Sign Up</h1>  
   
-<%= form_for @user do |f| %>  
+<%= form_for @user, :html => {:class => 'form-horizontal',:role => 'form'} do |f| %>
   <% if @user.errors.any? %>  
     <div class="error_messages">  
       <h2>Form is invalid</h2>  
@@ -10,18 +10,28 @@
         <% end %>  
       </ul>  
     </div>  
-  <% end %>  
-  <p>  
-    <%= f.label :email %><br />  
-    <%= f.text_field :username %>  
-  </p>  
-  <p>  
-    <%= f.label :password %><br />  
-    <%= f.password_field :password %>  
-  </p>  
-  <p>  
-    <%= f.label :password_confirmation %>  
-    <%= f.password_field :password_confirmation %>  
-  </p>  
-  <p class="button"><%= f.submit %></p>  
+  <% end %>
+    <div class="form-group">
+        <%= f.label :email,{:class => 'col-lg-2 control-label',:for => 'inputEmail1'} %>
+        <div class="col-lg-10">
+         <%= f.text_field :username,{:class => 'form-control',:id => 'inputEmail1'} %>
+        </div>
+    </div>
+    <div class="form-group">
+        <%= f.label :password,{:class => 'col-lg-2 control-label',:for => 'inputPassword1'} %>
+        <div class="col-lg-10">
+            <%= f.password_field :password,{:class => 'form-control',:id => 'inputPassword1'} %>
+        </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation,{:class => 'col-lg-2 control-label',:for => 'inputPassword1'} %>
+      <div class="col-lg-10">
+        <%= f.password_field :password_confirmation,{:class => 'form-control',:id => 'inputPassword1'} %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit 'Submit', :class => 'btn btn-default' %>
+      </div>
+    </div>
 <% end %>  
