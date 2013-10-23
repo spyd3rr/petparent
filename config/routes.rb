@@ -5,5 +5,15 @@ ParseRailsBoilerplate::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"  
   root :to => "users#new"  
   resources :users  
-  resources :sessions 
+  resources :sessions
+
+  resources :venues
+  resources :tips
+  resources :tags
+  resources :pets
+  resources :lost_pets
+  resources :events
+  resources :photos
+
+
 end

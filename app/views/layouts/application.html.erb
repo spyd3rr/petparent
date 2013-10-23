@@ -1,28 +1,92 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-  <title>Parse-Rails-Boilerplate</title>  
-  <%= stylesheet_link_tag :all %>  
-  <%= javascript_include_tag :defaults %>  
-  <%= csrf_meta_tag %>  
-</head>  
-<body> 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pet Parent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "application", :media => "all" %>
 
-	<div id="user_nav">  
-	  <% if current_user %>  
-	    Logged in as <%= current_user.username %>  
-	    <%= link_to "Log out", log_out_path %>  
-	  <% else %>  
-	    <%= link_to "Sign up", sign_up_path %> or   
-	    <%= link_to "Log in", log_in_path %>  
-	  <% end %>  
-	</div>  
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag "navbar-static-top" %>
 
-  <% flash.each do |name, msg| %>  
-    <%= content_tag :div, msg, :id => "flash#{name}" %>  
-  <% end %>  
-  
-<%= yield %>  
-  
-</body>  
-</html>  
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="../../assets/js/html5shiv.js"></script>
+  <script src="../../assets/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+<!-- Static navbar -->
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Pet Parent</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+
+        <% if current_user %>
+            Logged in as <%= current_user.username %>
+            <li><%= link_to "Log out", log_out_path %><li>
+            <li class="active"><%= link_to "Events", events_path %></li>
+            <li><%= link_to "Lost Pets", lost_pets_path %></li>
+            <li><%= link_to "Pets", pets_path %></li>
+            <li><%= link_to "Photos", photos_path %></li>
+            <li><%= link_to "Tags", tags_path %></li>
+            <li><%= link_to "Tips", tips_path %></li>
+            <li><%= link_to "Venues", venues_path %></li>
+        <% else %>
+            <li><%= link_to "Sign up", sign_up_path %></li>
+            <li><%= link_to "Log in", log_in_path %></li>
+        <% end %>
+
+
+        <!--<li class="dropdown">-->
+          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">Action</a></li>-->
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <!--<li class="divider"></li>-->
+            <!--<li class="dropdown-header">Nav header</li>-->
+            <!--<li><a href="#">Separated link</a></li>-->
+            <!--<li><a href="#">One more separated link</a></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="../navbar/">Default</a></li>
+        <li class="active"><a href="./">Static top</a></li>
+        <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash#{name}" %>
+<% end %>
+
+<div class="container">
+
+  <!-- Main component for a primary marketing message or call to action -->
+
+    <%= yield %>
+
+
+</div> <!-- /container -->
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="//code.jquery.com/jquery.js"></script>-->
+<%= javascript_include_tag "jquery" %>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<%= javascript_include_tag "application" %>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<h1>Listing events</h1>
+
+<table class="table">
+  <tr>
+    <th>Address</th>
+    <!--<th>Address2</th>-->
+    <!--<th>City</th>-->
+    <!--<th>Coordinate</th>-->
+    <!--<th>Description</th>-->
+    <!--<th>Enddate</th>-->
+    <!--<th>Image</th>-->
+    <th>Name</th>
+    <!--<th>Price</th>-->
+    <!--<th>Reportflag</th>-->
+    <th>Startdate</th>
+    <th>State</th>
+    <th>Tags</th>
+    <!--<th>Thumbnail</th>-->
+    <!--<th>User</th>-->
+    <th>Venue Name</th>
+    <th>Zip</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @events.each do |event| %>
+  <tr>
+    <td><%= event.address %></td>
+    <!--<td><%#= event.address2 %></td>-->
+    <!--<td><%#= event.city %></td>-->
+    <!--<td><%#= event.coordinate %></td>-->
+    <!--<td><%#= event.description %></td>-->
+    <!--<td><%#= event.endDate %></td>-->
+    <!--<td><%#= event.image %></td>-->
+    <td><%= event.name %></td>
+    <!--<td><%#= event.price %></td>-->
+    <!--<td><%#= event.reportFlag %></td>-->
+    <td><%= event.startDate %></td>
+    <td><%= event.state %></td>
+    <td><%= event.tags %></td>
+    <!--<td><%#= event.thumbnail %></td>-->
+    <!--<td><%#= event.user %></td>-->
+    <td><%= event.venue.name unless event.venue.nil? %></td>
+    <td><%= event.zip %></td>
+    <td><%= link_to 'Show', event %></td>
+    <td><%= link_to 'Edit', edit_event_path(event) %></td>
+    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<p>
+<%= link_to 'New Event', new_event_path ,{:class => 'btn btn-lg btn-primary'} %>
+</p>

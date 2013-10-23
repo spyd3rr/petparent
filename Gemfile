@@ -16,7 +16,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
+gem "parse_resource", "~> 1.8.0"
+#gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -34,3 +35,7 @@ group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
 end
+
+gem "kaminari" # optional for pagination support
+
+
