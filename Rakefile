@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ParseRailsBoilerplate::Application.load_tasks
+Petparent::Application.load_tasks

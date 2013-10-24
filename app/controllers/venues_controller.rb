@@ -42,6 +42,9 @@ class VenuesController < ApplicationController
   def create
 
     @venue = Venue.new(params[:venue])
+    @venue.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
+    params[:venue][:rating] = params[:venue][:rating].to_f
+    params[:venue][:reportFlag] = params[:venue][:reportFlag].to_f
 
     #result = Venue.upload(uploaded_file.tempfile, uploaded_file.original_filename, content_type: uploaded_file.content_type)
     #@post.thumbnail = {"name" => result["name"], "__type" => "File"}
@@ -62,6 +65,9 @@ class VenuesController < ApplicationController
   # PUT /venues/1.json
   def update
     @venue = Venue.find(params[:id])
+    @venue.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
+    params[:venue][:rating] = params[:venue][:rating].to_f
+    params[:venue][:reportFlag] = params[:venue][:reportFlag].to_f
 
     respond_to do |format|
       if @venue.update_attributes(params[:venue])

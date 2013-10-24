@@ -1,7 +1,7 @@
 class Event < ParseResource::Base
   #belongs_to :venue
 
-  #belongs_to :venue
+  belongs_to :user
 
   #has_many :tags
 

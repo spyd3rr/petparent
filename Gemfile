@@ -37,5 +37,8 @@ group :test do
 end
 
 gem "kaminari" # optional for pagination support
+gem "rmagick"
+gem "carrierwave"
+gem "parse_resource_rails"
 
 

@@ -5,6 +5,8 @@ class User < ParseUser
   # you can add fields, like any other kind of Object...
   fields :name, :bio
 
+  #has_many :events
+
   # but note that email is a special field in the Parse API.
   fields :email
 end
