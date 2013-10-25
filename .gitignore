@@ -15,4 +15,5 @@
 /log/*.log
 /tmp
 
-/config/parse_resource.yml
+/.Gemfile.lock
+#/config/parse_resource.yml
