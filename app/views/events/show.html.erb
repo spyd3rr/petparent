@@ -1,5 +1,7 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="alert alert-success"><%#= notice %></p>-->
 
+<div class="row">
+  <div class="col-md-6">
 <p>
   <b>Address:</b>
   <%= @event.address %>
@@ -15,10 +17,10 @@
   <%= @event.city %>
 </p>
 
-<p>
-  <b>Coordinate:</b>
-  <%= @event.coordinate %>
-</p>
+    <p>
+      <b>Coordinate:</b>
+      <%= @event.coordinate.latitude %>,<%= @event.coordinate.longitude %>
+    </p>
 
 <p>
   <b>Description:</b>
@@ -30,10 +32,6 @@
   <%= @event.endDate %>
 </p>
 
-<p>
-  <b>Image:</b>
-  <%= @event.image %>
-</p>
 
 <p>
   <b>Name:</b>
@@ -62,13 +60,13 @@
 
 <p>
   <b>Tags:</b>
-  <%= @event.tags %>
+  <%= @event.event_tags %>
 </p>
 
-<p>
-  <b>Thumbnail:</b>
-  <%= @event.thumbnail %>
-</p>
+    <p>
+      <b>Thumbnail:</b>
+      <%= image_tag @event.thumbnail %>
+    </p>
 
 <p>
   <b>User:</b>
@@ -77,14 +75,28 @@
 
 <p>
   <b>Venue:</b>
-  <%= @event.venue %>
+  <%= @event.venue.name %>
 </p>
 
 <p>
   <b>Zip:</b>
   <%= @event.zip %>
 </p>
+</div>
+
+  <div class="col-md-6">
+    <p>
+      <%= image_tag @event.image %>
+    </p>
+  </div>
+
+  </div>
 
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+
+<div class="row">
+  <br/>
+  <div class="col-xs-1"><p><%= button_to 'Edit', edit_event_path(@event), :class=> 'btn btn-primary', :method => :get  %></p></div>
+  <div class="col-xs-2"><p><%= button_to 'Back', events_path, :class=> 'btn btn-primary', :method => :get  %></p></div>
+  <div class="col-xs-10"></div>
+</div>

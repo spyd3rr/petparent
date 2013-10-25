@@ -1,6 +1,6 @@
-<%= form_for(@event) do |f| %>
+<%= form_for@event,:html => {:multipart => true, :role => 'form'} do |f| %>
   <% if @event.errors.any? %>
-    <div id="error_explanation">
+        <div id="error_explanation" class="alert alert-warning">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
       <ul>
@@ -11,75 +11,89 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+    <div class="col-md-6">
+      <div class="form-group">
+    <%= f.label :address %>
+    <%= f.text_field :address,{:class => 'form-control',:placeholder => 'Enter address'} %>
+      </div>
+      <div class="form-group">
+    <%= f.label :address2 %>
+    <%= f.text_field :address2,{:class => 'form-control',:placeholder => 'Enter address2'} %>
   </div>
-  <div class="field">
-    <%= f.label :address2 %><br />
-    <%= f.text_field :address2 %>
+      <div class="form-group">
+    <%= f.label :city %>
+    <%= f.text_field :city,{:class => 'form-control',:placeholder => 'Enter city'} %>
   </div>
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
+      <div class="form-group">
+        <%= f.label :coordinate %>
+        <div class="form-inline">
+          <div class="form-group">
+            <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '30',:class => 'form-control',:placeholder => 'Enter latitude' %>
+          </div>
+          <div class="form-group">
+            <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '29',:class => 'form-control',:placeholder => 'Enter longitude' %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description,{:class => 'form-control',:rows => "3",:placeholder => 'Enter description'} %>
+      </div>
+  <div class="form-group">
+    <%= f.label :endDate %>
+    <%= f.text_field :endDate,{:id => "datepicker",:class => 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :coordinate %><br />
-    <%= f.text_field :coordinate %>
+  <div class="form-group">
+    <%= f.label :image %>
+    <%#= f.text_field :image %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
+      <%= f.submit 'Submit', :class => 'btn btn-success' %>
+    </div>
+    <div class="col-md-6">
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name,{:class => 'form-control',:placeholder => 'Enter name'} %>
   </div>
-  <div class="field">
-    <%= f.label :endDate %><br />
-    <%= f.datetime_select :endDate %>
+  <div class="form-group">
+    <%= f.label :price %>
+  <div class="input-group">
+    <span class="input-group-addon">$</span>
+    <%= f.number_field :price,{:class => 'form-control'} %>
+    <span class="input-group-addon">.00</span>
   </div>
-  <div class="field">
-    <%= f.label :image %><br />
-    <%= f.text_field :image %>
   </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :reportFlag %>
+    <%= f.number_field :reportFlag,{:class => 'form-control',:placeholder => 'Enter reportFlag'} %>
   </div>
-  <div class="field">
-    <%= f.label :price %><br />
-    <%= f.number_field :price %>
+  <div class="form-group">
+    <%= f.label :startDate %>
+    <%= f.text_field :startDate,{:class => 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :reportFlag %><br />
-    <%= f.number_field :reportFlag %>
+  <div class="form-group">
+    <%= f.label :state %>
+    <%= f.text_field :state,{:class => 'form-control',:placeholder => 'Enter startDate'} %>
   </div>
-  <div class="field">
-    <%= f.label :startDate %><br />
-    <%= f.datetime_select :startDate %>
+  <div class="form-group">
+    <%= f.label :tags %>
   </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
+  <div class="form-group">
+    <%= f.label :thumbnail %>
+    <%#= f.file_field :thumbnail %>
   </div>
-  <div class="field">
-    <%= f.label :tags %><br />
-    <%= f.text_field :tags %>
+  <div class="form-group">
+    <%= f.label :user %>
+    <%#= f.number_field :user %>
   </div>
-  <div class="field">
-    <%= f.label :thumbnail %><br />
-    <%= f.text_field :thumbnail %>
+  <div class="form-group">
+    <%= f.label :venue %>
+    <%#= f.number_field :venue %>
   </div>
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.number_field :user %>
-  </div>
-  <div class="field">
-    <%= f.label :venue %><br />
-    <%= f.number_field :venue %>
-  </div>
-  <div class="field">
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+      <%= f.label :zip %>
+      <%= f.text_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
+    </div>
   </div>
 <% end %>
+
+

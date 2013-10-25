@@ -5,7 +5,7 @@
     <th>Address</th>
     <!--<th>Address2</th>-->
     <!--<th>City</th>-->
-    <!--<th>Coordinate</th>-->
+    <th>Coordinate</th>
     <!--<th>Description</th>-->
     <!--<th>Enddate</th>-->
     <!--<th>Image</th>-->
@@ -29,7 +29,7 @@
     <td><%= event.address %></td>
     <!--<td><%#= event.address2 %></td>-->
     <!--<td><%#= event.city %></td>-->
-    <!--<td><%#= event.coordinate %></td>-->
+    <td><% unless event.coordinate.nil? %><%= event.coordinate.latitude %><br><%= event.coordinate.longitude %><% end %></td>
     <!--<td><%#= event.description %></td>-->
     <!--<td><%#= event.endDate %></td>-->
     <!--<td><%#= event.image %></td>-->
@@ -38,7 +38,7 @@
     <!--<td><%#= event.reportFlag %></td>-->
     <td><%= event.startDate %></td>
     <td><%= event.state %></td>
-    <td><%= event.tags %></td>
+    <td><%= event.event_tags %></td>
     <!--<td><%#= event.thumbnail %></td>-->
     <!--<td><%#= event.user %></td>-->
     <td><%= event.venue.name unless event.venue.nil? %></td>

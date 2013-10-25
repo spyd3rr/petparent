@@ -16,4 +16,4 @@
 /tmp
 
 /.Gemfile.lock
-#/config/parse_resource.yml
+/config/parse_resource.yml

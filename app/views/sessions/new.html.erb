@@ -1,21 +1,52 @@
-<h1>Log in</h1>  
+
   
-<%= form_tag sessions_path, :class => 'form-horizontal',:role => 'form' do %>
-    <div class="form-group">
-    <%= label_tag :email, nil, :class => 'col-lg-2 control-label',:for => 'inputEmail1' %>
-      <div class="col-lg-10">
-    <%= text_field_tag :email, params[:email], :class => 'form-control',:id => 'inputEmail1' %>
-    </div>
-    </div>
-      <div class="form-group">
-    <%= label_tag :password, nil, :class => 'col-lg-2 control-label',:for => 'inputPassword1' %>
-        <div class="col-lg-10">
-    <%= password_field_tag :password,nil,:class => 'form-control',:id => 'inputPassword1' %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-lg-offset-2 col-lg-10">
-        <%= submit_tag 'Submit', :class => 'btn btn-default'  %>
-      </div>
-    </div>
-<% end %>  
+<%= form_tag sessions_path, :class => 'form-signin' do %>
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <%= text_field_tag :username, params[:username], :class => 'form-control', :placeholder=>"Username" %>
+    <%= password_field_tag :password,nil,:class => 'form-control', :placeholder=>"password" %>
+    <label class="checkbox">
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+    <%= submit_tag 'Sign in', :class => 'btn btn-lg btn-primary btn-block'  %>
+<% end %>
+
+
+
+
+<style>
+
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+    .form-signin .form-signin-heading,
+    .form-signin .checkbox {
+        margin-bottom: 10px;
+    }
+    .form-signin .checkbox {
+        font-weight: normal;
+    }
+    .form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+    .form-signin input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>

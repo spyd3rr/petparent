@@ -57,6 +57,12 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
+    @event.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
+    params[:event][:price] = params[:event][:price].to_f
+    params[:event][:reportFlag] = params[:event][:reportFlag].to_f
+    params[:event][:endDate] = params[:event][:endDate].to_date
+    params[:event][:startDate] = params[:event][:startDate].to_date
+
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
