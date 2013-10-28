@@ -35,6 +35,9 @@ class VenuesController < ApplicationController
   # GET /venues/1/edit
   def edit
     @venue = Venue.find(params[:id])
+    @tags = @venue.venue_tags
+    _tags = Venue.all
+    @tag_names = _tags.collect(&:name)
   end
 
   # POST /venues
@@ -64,10 +67,18 @@ class VenuesController < ApplicationController
   # PUT /venues/1
   # PUT /venues/1.json
   def update
+    #raise params[:image].to_yaml
     @venue = Venue.find(params[:id])
     @venue.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:venue][:rating] = params[:venue][:rating].to_f
     params[:venue][:reportFlag] = params[:venue][:reportFlag].to_f
+
+    if params[:venue][:tags]
+      ids=Venue.tags_to_ids(params[:venue][:tags])
+      tags_array=Venue.tags_to_pointer(ids)
+      params[:venue][:tags] = tags_array
+      #raise ids.to_yaml
+    end
 
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
@@ -91,4 +102,7 @@ class VenuesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
 end

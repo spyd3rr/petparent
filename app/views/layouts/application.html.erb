@@ -13,6 +13,9 @@
   <script src="../../assets/js/html5shiv.js"></script>
   <script src="../../assets/js/respond.min.js"></script>
   <![endif]-->
+
+
+  <%= javascript_include_tag "application" %>
 </head>
 <body>
 
@@ -87,9 +90,10 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="//code.jquery.com/jquery.js"></script>
 <%#= javascript_include_tag "jquery" %>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<%= javascript_include_tag "application" %>
+<%#= javascript_include_tag "application" %>
+
+
 </body>
 </html>

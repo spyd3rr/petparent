@@ -41,7 +41,7 @@
   </div>
   <div class="form-group">
     <%= f.label :image %>
-    <%#= f.text_field :image,{:class => 'form-control',:placeholder => 'Enter image'} %>
+    <%= f.file_field :image %>
   </div>
  <%= f.submit 'Submit', :class => 'btn btn-success' %>
  </div>
@@ -72,6 +72,14 @@
   </div>
   <div class="form-group">
     <%= f.label :tags %>
+    <div id="wrapper">
+      <div id="content">
+        <p>
+    <%= hidden_field(:venue, :tags, :value => @tags , id: "mySingleField") %>
+        </p>
+        <ul id="singleFieldTags"></ul>
+      </div>
+    </div>
     <%#= f.text_field :tags,{:class => 'form-control',:placeholder => 'Enter tags'} %>
   </div>
   <div class="form-group">
@@ -85,5 +93,37 @@
     <%= f.text_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
   </div>
 
+
+   <!--<div id="wrapper">-->
+     <!--<div id="content">-->
+       <!--<p>-->
+         <!--<input name="tags" id="mySingleField" value="Apple, Orange" disabled="true"> &lt;!&ndash; only disabled for demonstration purposes &ndash;&gt;-->
+       <!--</p>-->
+       <!--<ul id="singleFieldTags"></ul>-->
+     <!--</div>-->
+   <!--</div>-->
+
  </div>
 <% end %>
+
+<script>
+    $(function(){
+        var sampleTags = <%#= @tag_names %>['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+
+        //-------------------------------
+        // Minimal
+        //-------------------------------
+        $('#myTags').tagit();
+
+        //-------------------------------
+        // Single field
+        //-------------------------------
+        $('#singleFieldTags').tagit({
+            availableTags: sampleTags,
+            // This will make Tag-it submit a single form value, as a comma-delimited field.
+            singleField: true,
+            singleFieldNode: $('#mySingleField')
+        });
+
+    });
+</script>

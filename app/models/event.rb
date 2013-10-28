@@ -14,7 +14,7 @@ class Event < ParseResource::Base
         tag_names << tag.name
       end
     end
-    tag_names
+    tag_names.join(",")
   end
 
 end

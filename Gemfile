@@ -42,5 +42,6 @@ gem "parse_resource"#, "~> 1.8.0"
 gem "rmagick"
 gem "carrierwave"
 gem "parse_resource_rails"
+gem 'parse-ruby-client'
 
 
