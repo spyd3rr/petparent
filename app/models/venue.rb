@@ -43,4 +43,10 @@ class Venue < ParseResource::Base
   #Venue.tags_to_pointer(['c3kim0simY','7RN01J2QVP'])
   #["{\"__type\":\"Pointer\",\"className\":\"Tag\",\"objectId\":\"c3kim0simY\"}", "{\"__type\":\"Pointer\",\"className\":\"Tag\",\"objectId\":\"7RN01J2QVP\"}"]
 
+  def self.all_venues
+    venues = []
+    v = Venue.all
+    venues =  v.collect(&:name)
+  end
+
  end

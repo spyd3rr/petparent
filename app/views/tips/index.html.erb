@@ -18,7 +18,7 @@
     <td><%= tip.message %></td>
     <td><%= tip.reportFlag %></td>
     <td><%= tip.user %></td>
-    <td><%= tip.venue %></td>
+    <td><%= tip.venue.name unless tip.venue.nil? %></td>
     <td><%= link_to 'Show', tip %></td>
     <td><%= link_to 'Edit', edit_tip_path(tip) %></td>
     <td><%= link_to 'Destroy', tip, method: :delete, data: { confirm: 'Are you sure?' } %></td>

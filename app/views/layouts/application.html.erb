@@ -35,11 +35,11 @@
 
         <% if current_user %>
             <li class="<%= params[:controller] == "events" ? "active" : "" %>"><%= link_to "Events", events_path %></li>
-            <!--<li><%#= link_to "Lost Pets", lost_pets_path %></li>-->
-            <!--<li><%#= link_to "Pets", pets_path %></li>-->
-            <!--<li><%#= link_to "Photos", photos_path %></li>-->
-            <!--<li><%#= link_to "Tags", tags_path %></li>-->
-            <!--<li><%#= link_to "Tips", tips_path %></li>-->
+            <li><%= link_to "Lost Pets", lost_pets_path %></li>
+            <li><%= link_to "Pets", pets_path %></li>
+            <li><%= link_to "Photos", photos_path %></li>
+            <li><%= link_to "Tags", tags_path %></li>
+            <li><%= link_to "Tips", tips_path %></li>
             <li class="<%= params[:controller] == "venues" ? "active" : "" %>"><%= link_to "Venues", venues_path %></li>
         <% end %>
 

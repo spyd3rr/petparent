@@ -41,7 +41,7 @@ class LostPetsController < ApplicationController
   # POST /lost_pets.json
   def create
     @lost_pet = LostPet.new(params[:lost_pet])
-
+    @lost_pet.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     respond_to do |format|
       if @lost_pet.save
         format.html { redirect_to @lost_pet, notice: 'Lost pet was successfully created.' }

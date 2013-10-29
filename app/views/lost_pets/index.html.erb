@@ -28,7 +28,7 @@
     <td><%= lost_pet.address2 %></td>
     <td><%= lost_pet.breed %></td>
     <td><%= lost_pet.city %></td>
-    <td><%= lost_pet.coordinate %></td>
+    <td><% unless lost_pet.coordinate.nil? %><%= lost_pet.coordinate.latitude %><br><%= lost_pet.coordinate.longitude %><% end %></td>
     <td><%= lost_pet.email %></td>
     <td><%= lost_pet.image %></td>
     <td><%= lost_pet.message %></td>
