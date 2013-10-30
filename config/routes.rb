@@ -7,7 +7,11 @@ Petparent::Application.routes.draw do
   resources :users  
   resources :sessions
 
-  resources :venues
+  resources :venues do
+    collection do
+      get 'find'
+    end
+  end
   resources :tips
   resources :tags
   resources :pets

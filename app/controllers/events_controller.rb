@@ -67,6 +67,10 @@ class EventsController < ApplicationController
     params[:event][:endDate] = params[:event][:endDate].to_date
     params[:event][:startDate] = params[:event][:startDate].to_date
 
+    if params[:venue_id]
+      venue = Parse::Query.new("Venue").eq("objectId", params[:venue_id]).get.first
+      params[:event][:venue]=venue.pointer
+    end
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

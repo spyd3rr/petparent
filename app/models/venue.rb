@@ -35,14 +35,12 @@ class Venue < ParseResource::Base
   def self.tags_to_pointer(tag_ids=[])
     tags_array = []
     tag_ids.each do |tag_id|
-      tag_hash = {"__type"=>"Pointer", "className"=> "Tag", "objectId" => tag_id}
-      tags_array << tag_hash
+      tag_hash = Parse::Query.new("Tag").eq("objectId", tag_id).get.first
+      tags_array << tag_hash.pointer if tag_hash
     end
-    #tags_array = tags_array.to_json
     return tags_array
   end
   #Venue.tags_to_pointer(['c3kim0simY','7RN01J2QVP'])
-  #["{\"__type\":\"Pointer\",\"className\":\"Tag\",\"objectId\":\"c3kim0simY\"}", "{\"__type\":\"Pointer\",\"className\":\"Tag\",\"objectId\":\"7RN01J2QVP\"}"]
 
   def self.all_venues
     venues = []

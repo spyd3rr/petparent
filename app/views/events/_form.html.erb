@@ -87,7 +87,8 @@
   </div>
   <div class="form-group">
     <%= f.label :venue %>
-    <%#= f.number_field :venue %>
+    <%= text_field_tag :venue_name, (@event.venue ? @event.venue.name : "") , :size => '30',:class => 'form-control',:id => 'venue-name',:placeholder => 'Enter venue' %>
+    <%= hidden_field_tag :venue_id, (@event.venue ? @event.venue.id : nil) %>
   </div>
   <div class="form-group">
       <%= f.label :zip %>
@@ -95,5 +96,28 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+    $( "#venue-name" ).autocomplete({
+        source: function( request, response ) {
+            $.getJSON("/venues/find?contains=" + request.term, function (data) {
+                // console.log(data);
+                response(data);
+            });
+        },
+        minLength: 2,
+        delay: 0.3,
+        select: function( event, ui ) {
+            $("#venue-name").val(ui.item.label);
+            $("#venue_id").val(ui.item.id);
+
+            console.log( ui.item ?
+                    "Selected: " + ui.item.label :
+                    "Nothing selected, input was " + this.value);
+
+        }
+    });
+</script>
+
 
 

@@ -82,7 +82,7 @@
     <div id="wrapper">
       <div id="content">
         <p>
-    <%= hidden_field(:venue, :tags1, :value => @tags , id: "mySingleField") %>
+    <%= hidden_field_tag :tag_names, @tags , id: "mySingleField" %>
         </p>
         <ul id="singleFieldTags"></ul>
       </div>
@@ -110,7 +110,7 @@
 
 <script>
     $(function(){
-        var sampleTags = <%#= @tag_names %>['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+        var sampleTags = <%= raw @tag_names.to_json %>;//['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
 
         //-------------------------------
         // Minimal

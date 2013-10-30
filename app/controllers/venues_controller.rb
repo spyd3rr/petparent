@@ -73,11 +73,13 @@ class VenuesController < ApplicationController
     params[:venue][:rating] = params[:venue][:rating].to_f
     params[:venue][:reportFlag] = params[:venue][:reportFlag].to_f
 
-    if params[:venue][:tags]
-      ids=Venue.tags_to_ids(params[:venue][:tags])
+
+    if params[:tag_names]
+      #venue = Parse::Query.new("Venue").eq("objectId", @venue.id).get.first
+      ids=Venue.tags_to_ids(params[:tag_names])
       tags_array=Venue.tags_to_pointer(ids)
       params[:venue][:tags] = tags_array
-      #raise ids.to_yaml
+      #venue.save
     end
 
     params[:venue][:image] = Venue.image_upload(params[:venue][:image]) if params[:venue][:image]
@@ -104,6 +106,21 @@ class VenuesController < ApplicationController
       format.html { redirect_to venues_url }
       format.json { head :no_content }
     end
+  end
+
+  # GET /venues/find
+  def find
+    if params[:contains]
+      searchterm = params[:contains].gsub(/[^0-9a-z ]/i, '')#.upcase
+      #@venues = Venue.where("regexp_replace(name, '[^0-9a-zA-Z ]', '') ilike '%#{searchterm}%'").collect {|v| { :label => "#{v.name} (#{v.address})", :value => "#{v.name} (#{v.address})", :id => v.id } }
+      @venues = Parse::Query.new("Venue").regex("name", searchterm).get
+      #raise @venues.to_yaml
+      @venues = @venues.collect {|v| { :label => "#{v["name"]} (#{v["address"]})", :value => "#{v["name"]} (#{v["address"]})", :id => v["id"] } }
+    else
+      @venues = []
+    end
+
+    render json: @venues
   end
 
 
