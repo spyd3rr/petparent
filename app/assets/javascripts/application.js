@@ -9,6 +9,8 @@
 //= require jquery-ui
 //= require bootstrap
 //= require_self
+//= require ckeditor-jquery
+//= require ckeditor/ckeditor
 //= require_tree .
 
 $(document).ready(function(){

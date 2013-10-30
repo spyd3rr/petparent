@@ -1,29 +1,37 @@
-<h1>Listing photos</h1>
 
-<table>
+<div class="row">
+  <div class="col-lg-6">
+    <h1>Listing photos</h1>
+  </div>
+  <div class="col-lg-6">
+    <%= link_to 'New Photo', new_photo_path, {:class => 'btn btn-primary pull-right'} %>
+  </div>
+</div>
+
+
+<table class="table table-bordered table-striped">
   <tr>
     <th>Image</th>
     <th>Reportflag</th>
     <th>Thumbnail</th>
     <th>User</th>
     <th></th>
-    <th></th>
-    <th></th>
+
   </tr>
 
 <% @photos.each do |photo| %>
   <tr>
-    <td><%= photo.image %></td>
+    <td> <%= image_tag photo.image,:class =>'img-circle',:size =>"50x40" unless photo.image.nil?  %> </td>
     <td><%= photo.reportFlag %></td>
-    <td><%= photo.thumbnail %></td>
-    <td><%= photo.user %></td>
-    <td><%= link_to 'Show', photo %></td>
-    <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
-    <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= image_tag photo.thumbnail,:class =>'img-circle',:size =>"40x40" unless photo.thumbnail.nil?%></td>
+    <td><%= photo.user.firstName unless photo.user.nil? %></td>
+
+    <td><%= link_to 'Edit', edit_photo_path(photo) %> &nbsp;&nbsp;
+      <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
 
-<%= link_to 'New Photo', new_photo_path %>
+
+

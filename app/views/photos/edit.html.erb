@@ -1,6 +1,12 @@
 <h1>Editing photo</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Show', @photo %> |
-<%= link_to 'Back', photos_path %>
+<div class="row">
+  <br/>
+  <div class="col-xs-1"><p><%= button_to 'Show', @photo, :class=> 'btn btn-primary', :method => :get  %></p></div>
+  <div class="col-xs-2"><p><%= button_to 'Back', photos_path, :class=> 'btn btn-primary', :method => :get  %></p></div>
+  <div class="col-xs-10"></div>
+</div>

@@ -1,4 +1,4 @@
-<%= form_for(@photo) do |f| %>
+<%= form_for @photo,:html => {:multipart => true, :role => 'form'}  do |f|%>
   <% if @photo.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
@@ -10,24 +10,25 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :image %><br />
-    <%= f.text_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :reportFlag %><br />
-    <%= f.number_field :reportFlag %>
-  </div>
-  <div class="field">
-    <%= f.label :thumbnail %><br />
-    <%= f.text_field :thumbnail %>
-  </div>
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.number_field :user %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+      <%= image_tag @photo.image,:class =>'img-circle',:size =>"50x40" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :thumbnail %>
+      <%= f.file_field :thumbnail %>
+      <%= image_tag @photo.image,:class =>'img-circle',:size =>"50x40" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :user %>
+      <%= f.text_field :user,{:class => 'form-control',:placeholder => 'Enter user'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :reportFlag %>
+      <%= f.text_field :reportFlag,{:class => 'form-control',:placeholder => 'Enter report flag'} %>
+    </div>
+    <%= f.submit 'Submit', :class => 'btn btn-success' %>
   </div>
 <% end %>

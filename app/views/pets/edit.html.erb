@@ -1,6 +1,12 @@
 <h1>Editing pet</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Show', @pet %> |
-<%= link_to 'Back', pets_path %>
+<div class="row">
+  <br/>
+  <div class="col-xs-1"><p><%= button_to 'Show', @pet, :class=> 'btn btn-primary', :method => :get  %></p></div>
+  <div class="col-xs-2"><p><%= button_to 'Back', pets_path, :class=> 'btn btn-primary', :method => :get  %></p></div>
+  <div class="col-xs-10"></div>
+</div>

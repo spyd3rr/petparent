@@ -1,51 +1,57 @@
-<h1>Listing lost_pets</h1>
 
-<table>
+<div class="row">
+  <div class="col-lg-6">
+    <h1>Listing lost_pets</h1>
+  </div>
+  <div class="col-lg-5">
+    <%= link_to 'New Lost pet', new_lost_pet_path, :class =>'btn btn-primary pull-right' %>
+  </div>
+</div>
+
+<table class="table table-bordered table-striped">
   <tr>
-    <th>Address</th>
-    <th>Address2</th>
-    <th>Breed</th>
-    <th>City</th>
-    <th>Coordinate</th>
-    <th>Email</th>
-    <th>Image</th>
-    <th>Message</th>
     <th>Name</th>
+    <th>Breed</th>
+    <th>Address</th>
     <th>Phone</th>
-    <th>Shelters</th>
-    <th>State</th>
-    <th>Thumbnail</th>
+  <!--  <th>Address2</th>-->
+
+   <!-- <th>City</th>-->
+    <!--<th>Coordinate</th>-->
+    <th>Email</th>
+  <!--  <th>Image</th>-->
+  <!--  <th>Message</th>-->
+    <!--<th>Shelters</th>-->
+  <!--  <th>State</th>-->
+   <!-- <th>Thumbnail</th>-->
     <th>User</th>
-    <th>Zip</th>
+    <!--<th>Zip</th>-->
     <th></th>
-    <th></th>
-    <th></th>
+
   </tr>
 
 <% @lost_pets.each do |lost_pet| %>
   <tr>
-    <td><%= lost_pet.address %></td>
-    <td><%= lost_pet.address2 %></td>
+    <td><%= link_to lost_pet.name , edit_lost_pet_path(lost_pet) %></td>
     <td><%= lost_pet.breed %></td>
-    <td><%= lost_pet.city %></td>
-    <td><% unless lost_pet.coordinate.nil? %><%= lost_pet.coordinate.latitude %><br><%= lost_pet.coordinate.longitude %><% end %></td>
-    <td><%= lost_pet.email %></td>
-    <td><%= lost_pet.image %></td>
-    <td><%= lost_pet.message %></td>
-    <td><%= lost_pet.name %></td>
+    <td><%= lost_pet.address %></td>
     <td><%= lost_pet.phone %></td>
-    <td><%= lost_pet.shelters %></td>
-    <td><%= lost_pet.state %></td>
-    <td><%= lost_pet.thumbnail %></td>
-    <td><%= lost_pet.user %></td>
-    <td><%= lost_pet.zip %></td>
-    <td><%= link_to 'Show', lost_pet %></td>
-    <td><%= link_to 'Edit', edit_lost_pet_path(lost_pet) %></td>
-    <td><%= link_to 'Destroy', lost_pet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <!--<td><%#= lost_pet.address2 %></td>-->
+
+   <!-- <td><%#= lost_pet.city %></td>-->
+    <!--<td><%# unless lost_pet.coordinate.nil? %><%#= lost_pet.coordinate.latitude %><br><%#= lost_pet.coordinate.longitude %><%# end %></td>-->
+    <td><%= lost_pet.email %></td>
+   <!-- <td><%#= lost_pet.image %></td>-->
+   <!-- <td><%#= lost_pet.message %></td>-->
+   <!-- <td><%#= lost_pet.shelters %></td>-->
+   <!-- <td><%#= lost_pet.state %></td>-->
+   <!-- <td><%#= lost_pet.thumbnail %></td>-->
+    <td><%= lost_pet.user.firstName unless lost_pet.user.nil? %></td>
+   <!-- <td><%#= lost_pet.zip %></td>-->
+    <td><%= link_to 'Destroy', lost_pet, method: :delete,  data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
 
-<%= link_to 'New Lost pet', new_lost_pet_path %>
+

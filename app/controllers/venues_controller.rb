@@ -36,7 +36,7 @@ class VenuesController < ApplicationController
   def edit
     @venue = Venue.find(params[:id])
     @tags = @venue.venue_tags
-    _tags = Venue.all
+    _tags = Tag.all
     @tag_names = _tags.collect(&:name)
   end
 
@@ -82,8 +82,10 @@ class VenuesController < ApplicationController
       #venue.save
     end
 
+
     params[:venue][:image] = Venue.image_upload(params[:venue][:image]) if params[:venue][:image]
     params[:venue][:thumbnail] = Venue.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
+
 
     respond_to do |format|
       if @venue.update_attributes(params[:venue])

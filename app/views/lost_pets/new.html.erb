@@ -1,5 +1,17 @@
 <h1>New lost_pet</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Back', lost_pets_path %>
+<div class="row">
+  <br/>
+  <div class="col-xs-2"><p><%= button_to 'Back', lost_pets_path, :class => 'btn btn-primary', :method => :get %></p>
+  </div>
+  <div class="col-xs-10"></div>
+</div>
+
+
+
+
+

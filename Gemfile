@@ -17,6 +17,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'ckeditor_rails'
+
 #gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
 
 # To use ActiveModel has_secure_password

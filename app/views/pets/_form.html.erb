@@ -1,45 +1,64 @@
-<%= form_for(@pet) do |f| %>
+<%= form_for @pet, :html => {:multipart => true, :role => 'form'} do |f| %>
   <% if @pet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
 
       <ul>
-      <% @pet.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @pet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, {:class => 'form-control', :placeholder => 'Enter name'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :breed %>
+      <%= f.text_field :breed, {:class => 'form-control', :placeholder => 'Enter breed'} %>
+    </div>
 
-  <div class="field">
-    <%= f.label :breed %><br />
-    <%= f.text_field :breed %>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description,{:class => 'form-control ckeditor1',:rows => "3",:placeholder => 'Enter description'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :reportFlag %>
+      <%= f.text_field :reportFlag, {:class => 'form-control', :placeholder => 'Enter report flag'} %>
+    </div>
+    <%= f.submit 'Submit', :class => 'btn btn-success' %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :user %>
+      <%= f.text_field :user, {:class => 'form-control', :placeholder => 'Enter user'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :mainPhoto %>
+      <%= f.file_field :mainPhoto %>
+      <%= image_tag @pet.mainPhoto,:class =>'img-circle',:size =>"50x40" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :photos %>
+      <%= f.file_field :photos %>
+      <%= image_tag @pet.photos,:class =>'img-circle',:size =>"50x40" %>
+    </div>
+
   </div>
-  <div class="field">
-    <%= f.label :mainPhoto %><br />
-    <%= f.number_field :mainPhoto %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :photos %><br />
-    <%= f.number_field :photos %>
-  </div>
-  <div class="field">
-    <%= f.label :reportFlag %><br />
-    <%= f.number_field :reportFlag %>
-  </div>
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.number_field :user %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
+
+<script>
+  $('.ckeditor1').ckeditor({
+    toolbar: 'Pure',
+    width: 522,
+    height:70,
+    pasteFromWordRemoveFontStyles: false,
+    pasteFromWordRemoveStyles: false,
+    forcePasteAsPlainText: false
+  });
+</script>
+

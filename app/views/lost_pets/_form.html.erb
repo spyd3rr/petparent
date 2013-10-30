@@ -1,4 +1,4 @@
-<%= form_for(@lost_pet) do |f| %>
+<%= form_for@lost_pet,:html => {:multipart => true, :role => 'form'} do |f| %>
   <% if @lost_pet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@lost_pet.errors.count, "error") %> prohibited this lost_pet from being saved:</h2>
@@ -10,68 +10,82 @@
       </ul>
     </div>
   <% end %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name,{:class => 'form-control',:placeholder => 'Enter name'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :breed %>
+      <%= f.text_field :breed,{:class => 'form-control',:placeholder => 'Enter breed'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_field :address,{:class => 'form-control',:placeholder => 'Enter address'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address2 %>
+      <%= f.text_field :address2,{:class => 'form-control',:placeholder => 'Enter address2'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :city %>
+      <%= f.text_field :city,{:class => 'form-control',:placeholder => 'Enter city'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :state %>
+      <%= f.text_field :state,{:class => 'form-control',:placeholder => 'Enter state'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone %>
+      <%= f.text_field :phone,{:class => 'form-control',:placeholder => 'Enter phone no'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :zip %>
+      <%= f.text_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
+    </div>
 
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+
+    <%= f.submit 'Submit', :class => 'btn btn-success' %>
   </div>
-  <div class="field">
-    <%= f.label :address2 %><br />
-    <%= f.text_field :address2 %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email,{:class => 'form-control',:placeholder => 'Enter email'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :coordinate %>
+      <div class="form-inline">
+        <div class="form-group">
+          <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '30',:class => 'form-control',:placeholder => 'Enter latitude' %>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '27',:class => 'form-control',:placeholder => 'Enter longitude' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :message %>
+      <%= f.text_field :message,{:class => 'form-control',:placeholder => 'Enter message'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :shelters %>
+      <%= f.text_field :shelters,{:class => 'form-control',:placeholder => 'Enter shelters'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :user %>
+      <%= f.text_field :user,{:class => 'form-control',:placeholder => 'Enter user'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+      <%= image_tag @lost_pet.image ,:class =>'img-circle',:size =>"50x40"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :thumbnail %>
+      <%= f.file_field :thumbnail %>
+      <%= image_tag @lost_pet.thumbnail ,:class =>'img-circle',:size =>"50x40"%>
+    </div>
+
   </div>
-  <div class="field">
-    <%= f.label :breed %><br />
-    <%= f.text_field :breed %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :coordinate %><br />
-    <%= f.text_field :coordinate %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br />
-    <%= f.text_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :message %><br />
-    <%= f.text_field :message %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :shelters %><br />
-    <%= f.text_field :shelters %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :thumbnail %><br />
-    <%= f.text_field :thumbnail %>
-  </div>
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.number_field :user %>
-  </div>
-  <div class="field">
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
