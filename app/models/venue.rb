@@ -39,7 +39,7 @@ class Venue < ParseResource::Base
       tags_array << tag_hash
     end
     #tags_array = tags_array.to_json
-    tags_array
+    return tags_array
   end
   #Venue.tags_to_pointer(['c3kim0simY','7RN01J2QVP'])
   #["{\"__type\":\"Pointer\",\"className\":\"Tag\",\"objectId\":\"c3kim0simY\"}", "{\"__type\":\"Pointer\",\"className\":\"Tag\",\"objectId\":\"7RN01J2QVP\"}"]
@@ -48,6 +48,17 @@ class Venue < ParseResource::Base
     venues = []
     v = Venue.all
     venues =  v.collect(&:name)
+  end
+
+  def self.image_upload(pic)
+    #raise params[:venue][:image].read.to_yaml
+    photo = Parse::File.new({
+                                :body => pic.read,#IO.read("test/parsers.jpg"),
+                                :local_filename => pic.original_filename,#"parsers.jpg",
+                                :content_type => pic.content_type#"image/jpeg"
+                            })
+    photo.save
+    return photo
   end
 
  end

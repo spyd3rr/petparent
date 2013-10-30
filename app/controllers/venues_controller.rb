@@ -80,22 +80,8 @@ class VenuesController < ApplicationController
       #raise ids.to_yaml
     end
 
-    #raise params[:venue][:image].read.to_yaml
-    photo = Parse::File.new({
-                                :body => params[:venue][:image].read,#IO.read("test/parsers.jpg"),
-                                :local_filename => params[:venue][:image].original_filename,#"parsers.jpg",
-                                :content_type => params[:venue][:image].content_type#"image/jpeg"
-                            })
-    photo.save
-    params[:venue][:image] = photo
-
-    photo = Parse::File.new({
-                                :body => params[:venue][:thumbnail].read,#IO.read("test/parsers.jpg"),
-                                :local_filename => params[:venue][:thumbnail].original_filename,#"parsers.jpg",
-                                :content_type => params[:venue][:thumbnail].content_type#"image/jpeg"
-                            })
-    photo.save
-    params[:venue][:thumbnail] = photo
+    params[:venue][:image] = Venue.image_upload(params[:venue][:image]) if params[:venue][:image]
+    params[:venue][:thumbnail] = Venue.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
 
     respond_to do |format|
       if @venue.update_attributes(params[:venue])

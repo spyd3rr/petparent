@@ -44,6 +44,12 @@
     <%= f.file_field :image %>
     <%= image_tag @venue.image %>
   </div>
+   <div class="form-group">
+     <%= f.label :thumbnail %>
+     <%= f.file_field :thumbnail %>
+     <%= image_tag @venue.thumbnail %>
+   </div>
+
  <%= f.submit 'Submit', :class => 'btn btn-success' %>
  </div>
  <div class="col-md-6">
@@ -83,13 +89,7 @@
     </div>
     <%#= f.text_field :tags,{:class => 'form-control',:placeholder => 'Enter tags'} %>
   </div>
-  <div class="form-group">
-    <%= f.label :thumbnail %>
-    <%#= f.text_field :thumbnail,{:class => 'form-control',:placeholder => 'Enter thumbnail'} %>
-    <%= f.file_field :thumbnail %>
-    <%= image_tag @venue.thumbnail %>
-    <%#= f.file_field :thumbnail %>
-  </div>
+
   <div class="form-group">
     <%= f.label :zip %>
     <%= f.text_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
