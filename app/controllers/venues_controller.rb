@@ -117,7 +117,7 @@ class VenuesController < ApplicationController
       #@venues = Venue.where("regexp_replace(name, '[^0-9a-zA-Z ]', '') ilike '%#{searchterm}%'").collect {|v| { :label => "#{v.name} (#{v.address})", :value => "#{v.name} (#{v.address})", :id => v.id } }
       @venues = Parse::Query.new("Venue").regex("name", searchterm).get
       #raise @venues.to_yaml
-      @venues = @venues.collect {|v| { :label => "#{v["name"]} (#{v["address"]})", :value => "#{v["name"]} (#{v["address"]})", :id => v["id"] } }
+      @venues = @venues.collect {|v| { :label => "#{v["name"]} (#{v["address"]})", :value => "#{v["name"]} (#{v["address"]})", :id => v.id } }
     else
       @venues = []
     end
