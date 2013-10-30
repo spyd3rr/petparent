@@ -19,7 +19,7 @@
 
     <p>
       <b>Coordinate:</b>
-      <%= @event.coordinate.latitude %>,<%= @event.coordinate.longitude %>
+      <%= @event.coordinate.latitude if @event.coordinate %>,<%= @event.coordinate.longitude unless @event.coordinate.nil? %>
     </p>
 
 <p>
@@ -35,7 +35,7 @@
 
 <p>
   <b>Name:</b>
-  <%= @event.name %>
+  <%= @event.name  %>
 </p>
 
 <p>
@@ -75,7 +75,7 @@
 
 <p>
   <b>Venue:</b>
-  <%= @event.venue.name %>
+  <%= @event.venue.name if @event.venue %>
 </p>
 
 <p>

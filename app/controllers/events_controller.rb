@@ -28,6 +28,9 @@ class EventsController < ApplicationController
     @event = Event.new
     @venue_names = Venue.all_venues
 
+    _tags = Tag.all
+    @tag_names = _tags.collect(&:name)
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @event }
@@ -37,14 +40,37 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    @venue_names = Venue.all_venues
+    #@venue_names = Venue.all_venues
+    @tags = @event.event_tags
+    _tags = Tag.all
+    @tag_names = _tags.collect(&:name)
   end
 
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(params[:event])
-    @venue_names = Venue.all_venues
+    #@venue_names = Venue.all_venues
+
+    @event.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
+    params[:event][:price] = params[:event][:price].to_f
+    params[:event][:reportFlag] = params[:event][:reportFlag].to_f
+    params[:event][:endDate] = params[:event][:endDate].to_date
+    params[:event][:startDate] = params[:event][:startDate].to_date
+
+    if params[:venue_id]
+      venue = Parse::Query.new("Venue").eq("objectId", params[:venue_id]).get.first
+      params[:event][:venue]=venue.pointer if venue
+    end
+    if params[:tag_names]
+      #venue = Parse::Query.new("Venue").eq("objectId", @venue.id).get.first
+      ids=Venue.tags_to_ids(params[:tag_names])
+      tags_array=Venue.tags_to_pointer(ids)
+      params[:event][:tags] = tags_array
+      #venue.save
+    end
+    params[:event][:thumbnail] = Venue.image_upload(params[:event][:thumbnail]) if params[:event][:thumbnail]
+
 
     respond_to do |format|
       if @event.save
@@ -67,10 +93,26 @@ class EventsController < ApplicationController
     params[:event][:endDate] = params[:event][:endDate].to_date
     params[:event][:startDate] = params[:event][:startDate].to_date
 
+    #if venue presents
     if params[:venue_id]
       venue = Parse::Query.new("Venue").eq("objectId", params[:venue_id]).get.first
       params[:event][:venue]=venue.pointer if venue
     end
+
+    #if Users presents
+    if params[:user_id]
+      venue = Parse::Query.new("Venue").eq("objectId", params[:venue_id]).get.first
+      params[:event][:venue]=venue.pointer if venue
+    end
+
+    if params[:tag_names]
+      #venue = Parse::Query.new("Venue").eq("objectId", @venue.id).get.first
+      ids=Venue.tags_to_ids(params[:tag_names])
+      tags_array=Venue.tags_to_pointer(ids)
+      params[:event][:tags] = tags_array
+      #venue.save
+    end
+    params[:event][:thumbnail] = Venue.image_upload(params[:event][:thumbnail]) if params[:event][:thumbnail]
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

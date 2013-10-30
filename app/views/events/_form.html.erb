@@ -1,131 +1,161 @@
-<%= form_for@event,:html => {:multipart => true, :role => 'form'} do |f| %>
+<%= form_for @event, :html => {:multipart => true, :role => 'form'} do |f| %>
   <% if @event.errors.any? %>
-        <div id="error_explanation" class="alert alert-warning">
+    <div id="error_explanation" class="alert alert-warning">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
       <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-    <div class="col-md-6">
-      <div class="form-group">
-    <%= f.label :address %>
-    <%= f.text_field :address,{:class => 'form-control',:placeholder => 'Enter address'} %>
-      </div>
-      <div class="form-group">
-    <%= f.label :address2 %>
-    <%= f.text_field :address2,{:class => 'form-control',:placeholder => 'Enter address2'} %>
-  </div>
-      <div class="form-group">
-    <%= f.label :city %>
-    <%= f.text_field :city,{:class => 'form-control',:placeholder => 'Enter city'} %>
-  </div>
-      <div class="form-group">
-        <%= f.label :coordinate %>
-        <div class="form-inline">
-          <div class="form-group">
-            <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '30',:class => 'form-control',:placeholder => 'Enter latitude' %>
-          </div>
-          <div class="form-group">
-            <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '29',:class => 'form-control',:placeholder => 'Enter longitude' %>
-          </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_field :address, {:class => 'form-control', :placeholder => 'Enter address'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address2 %>
+      <%= f.text_field :address2, {:class => 'form-control', :placeholder => 'Enter address2'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :city %>
+      <%= f.text_field :city, {:class => 'form-control', :placeholder => 'Enter city'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :coordinate %>
+      <div class="form-inline">
+        <div class="form-group">
+          <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?), :size => '30', :class => 'form-control', :placeholder => 'Enter latitude' %>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?), :size => '27', :class => 'form-control', :placeholder => 'Enter longitude' %>
         </div>
       </div>
-      <div class="form-group">
-        <%= f.label :description %>
-        <%= f.text_area :description,{:class => 'form-control ckeditor1',:rows => "3",:placeholder => 'Enter description'} %>
-      </div>
-  <div class="form-group">
-    <%= f.label :endDate %>
-    <%= f.text_field :endDate,{:id => "datepicker",:class => 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :image %>
-    <%#= f.text_field :image %>
-  </div>
-      <%= f.submit 'Submit', :class => 'btn btn-success' %>
     </div>
-    <div class="col-md-6">
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name,{:class => 'form-control',:placeholder => 'Enter name'} %>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, {:class => 'form-control ckeditor1', :rows => "3", :placeholder => 'Enter description'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :endDate %>
+      <%= f.text_field :endDate, {:id => "datepicker", :class => 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :image %>
+      <%#= f.text_field :image %>
+    </div>
+    <%= f.submit 'Submit', :class => 'btn btn-success' %>
   </div>
-  <div class="form-group">
-    <%= f.label :price %>
-  <div class="input-group">
-    <span class="input-group-addon">$</span>
-    <%= f.number_field :price,{:class => 'form-control'} %>
-    <span class="input-group-addon">.00</span>
-  </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :reportFlag %>
-    <%= f.number_field :reportFlag,{:class => 'form-control',:placeholder => 'Enter reportFlag'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :startDate %>
-    <%= f.text_field :startDate,{:class => 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :state %>
-    <%= f.text_field :state,{:class => 'form-control',:placeholder => 'Enter startDate'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tags %>
-  </div>
-  <div class="form-group">
-    <%= f.label :thumbnail %>
-    <%#= f.file_field :thumbnail %>
-  </div>
-  <div class="form-group">
-    <%= f.label :user %>
-    <%#= f.number_field :user %>
-  </div>
-  <div class="form-group">
-    <%= f.label :venue %>
-    <%= text_field_tag :venue_name, (@event.venue ? @event.venue.name : "") , :size => '30',:class => 'form-control',:id => 'venue-name',:placeholder => 'Enter venue' %>
-    <%= hidden_field_tag :venue_id, (@event.venue ? @event.venue.id : nil) %>
-  </div>
-  <div class="form-group">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, {:class => 'form-control', :placeholder => 'Enter name'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :price %>
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        <%= f.number_field :price, {:class => 'form-control'} %>
+        <span class="input-group-addon">.00</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :reportFlag %>
+      <%= f.number_field :reportFlag, {:class => 'form-control', :placeholder => 'Enter reportFlag'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :startDate %>
+      <%= f.text_field :startDate, {:class => 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :state %>
+      <%= f.text_field :state, {:class => 'form-control', :placeholder => 'Enter startDate'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :tags %>
+      <div id="wrapper">
+        <div id="content">
+          <p>
+            <%= hidden_field_tag :tag_names, @tags, id: "mySingleField" %>
+          </p>
+          <ul id="singleFieldTags"></ul>
+        </div>
+      </div>
+      <%#= f.text_field :tags,{:class => 'form-control',:placeholder => 'Enter tags'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :thumbnail %>
+      <%= f.file_field :thumbnail %>
+      <%= image_tag @event.image, :class => 'img-circle', :size => "50x40" %>
+    </div>
+
+    <!--<div class="form-group">-->
+      <!--<%#= f.label :user %>-->
+      <!--<%#= f.number_field :user %>-->
+    <!--</div>-->
+    <div class="form-group">
+      <%= f.label :venue %>
+      <%= text_field_tag :venue_name, (@event.venue ? @event.venue.name : ""), :size => '30', :class => 'form-control', :id => 'venue-name', :placeholder => 'Enter venue' %>
+      <%= hidden_field_tag :venue_id, (@event.venue ? @event.venue.id : nil) %>
+    </div>
+    <div class="form-group">
       <%= f.label :zip %>
-      <%= f.text_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
+      <%= f.text_field :zip, {:class => 'form-control', :placeholder => 'Enter zip'} %>
     </div>
   </div>
 <% end %>
 
 <script type="text/javascript">
-    $( "#venue-name" ).autocomplete({
-        source: function( request, response ) {
-            $.getJSON("/venues/find?contains=" + request.term, function (data) {
-                // console.log(data);
-                response(data);
-            });
-        },
-        minLength: 2,
-        delay: 0.3,
-        select: function( event, ui ) {
-            $("#venue-name").val(ui.item.label);
-            $("#venue_id").val(ui.item.id);
+  $("#venue-name").autocomplete({
+    source: function (request, response) {
+      $.getJSON("/venues/find?contains=" + request.term, function (data) {
+        // console.log(data);
+        response(data);
+      });
+    },
+    minLength: 2,
+    delay: 0.3,
+    select: function (event, ui) {
+      $("#venue-name").val(ui.item.label);
+      $("#venue_id").val(ui.item.id);
 
-            console.log( ui.item ?
-                    "Selected: " + ui.item.label :
-                    "Nothing selected, input was " + this.value);
+      console.log(ui.item ?
+        "Selected: " + ui.item.label :
+        "Nothing selected, input was " + this.value);
 
-        }
+    }
+  });
+  $(function(){
+    var sampleTags = <%= raw @tag_names.to_json %>;//['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+
+    //-------------------------------
+    // Minimal
+    //-------------------------------
+    $('#myTags').tagit();
+
+    //-------------------------------
+    // Single field
+    //-------------------------------
+    $('#singleFieldTags').tagit({
+      availableTags: sampleTags,
+      // This will make Tag-it submit a single form value, as a comma-delimited field.
+      singleField: true,
+      singleFieldNode: $('#mySingleField')
     });
 
-    $('.ckeditor1').ckeditor({
-      toolbar: 'Pure',
-      width: 522,
-      height:70,
-      pasteFromWordRemoveFontStyles: false,
-      pasteFromWordRemoveStyles: false,
-      forcePasteAsPlainText: false
-    });
+  });
+
+  $('.ckeditor1').ckeditor({
+    toolbar: 'Pure',
+    width: 522,
+    height: 70,
+    pasteFromWordRemoveFontStyles: false,
+    pasteFromWordRemoveStyles: false,
+    forcePasteAsPlainText: false
+  });
 
 
 </script>

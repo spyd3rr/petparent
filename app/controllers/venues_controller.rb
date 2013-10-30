@@ -25,7 +25,8 @@ class VenuesController < ApplicationController
   # GET /venues/new.json
   def new
     @venue = Venue.new
-
+    _tags = Tag.all
+    @tag_names = _tags.collect(&:name)
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @venue }
@@ -49,9 +50,17 @@ class VenuesController < ApplicationController
     params[:venue][:rating] = params[:venue][:rating].to_f
     params[:venue][:reportFlag] = params[:venue][:reportFlag].to_f
 
-    #result = Venue.upload(uploaded_file.tempfile, uploaded_file.original_filename, content_type: uploaded_file.content_type)
-    #@post.thumbnail = {"name" => result["name"], "__type" => "File"}
-    #@venue.coordinate = ParseGeoPoint.new :latitude => params[:venue][:lat], :longitude => params[:venue][:long]
+    if params[:tag_names]
+      #venue = Parse::Query.new("Venue").eq("objectId", @venue.id).get.first
+      ids=Venue.tags_to_ids(params[:tag_names])
+      tags_array=Venue.tags_to_pointer(ids)
+      params[:venue][:tags] = tags_array
+      #venue.save
+    end
+
+
+    params[:venue][:image] = Venue.image_upload(params[:venue][:image]) if params[:venue][:image]
+    params[:venue][:thumbnail] = Venue.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
 
     respond_to do |format|
       if @venue.save
