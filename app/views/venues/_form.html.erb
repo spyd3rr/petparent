@@ -11,7 +11,11 @@
       </ul>
     </div>
   <% end %>
- <div class="col-md-6">
+ <div class="col-md-12">
+   <div class="form-group">
+     <%= f.label :name %>
+     <%= f.text_field :name,{:class => 'form-control',:placeholder => 'Enter name'} %>
+   </div>
   <div class="form-group">
     <%= f.label :address %>
     <%= f.text_field :address,{:class => 'form-control',:placeholder => 'Enter address'} %>
@@ -24,7 +28,16 @@
     <%= f.label :city %>
     <%= f.text_field :city,{:class => 'form-control',:placeholder => 'Enter city'} %>
   </div>
-  <div class="form-group">
+   <div class="form-group">
+     <%= f.label :state %>
+     <%= f.text_field :state,{:class => 'form-control',:placeholder => 'Enter address'} %>
+   </div>
+   <div class="form-group">
+     <%= f.label :zip %>
+     <%= f.text_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
+   </div>
+
+   <div class="form-group">
     <%= f.label :coordinate %>
     <div class="form-inline">
       <div class="form-group">
@@ -36,13 +49,34 @@
     </div>
   </div>
    <div class="form-group">
+     <%= f.label :phone %>
+     <%= f.text_field :phone,{:class => 'form-control',:placeholder => 'Enter phone'} %>
+   </div>
+   <div class="form-group">
+     <%= f.label :rating %>
+     <%= f.number_field :rating,{:class => 'form-control',:placeholder => 'Enter rating'} %>
+   </div>
+   <div class="form-group">
+     <%= f.label :tags %>
+     <div id="wrapper">
+       <div id="content">
+         <p>
+           <%= hidden_field_tag :tag_names, @tags , id: "mySingleField" %>
+         </p>
+         <ul id="singleFieldTags"></ul>
+       </div>
+     </div>
+     <%#= f.text_field :tags,{:class => 'form-control',:placeholder => 'Enter tags'} %>
+   </div>
+
+   <div class="form-group">
      <%= f.label :description %>
      <%= f.text_area :description,{:class => 'form-control ckeditor1',:rows => "3",:placeholder => 'Enter description'} %>
    </div>
   <div class="form-group">
     <%= f.label :image %>
     <%= f.file_field :image %>
-    <%= image_tag @venue.image %>
+    <%#= image_tag @venue.image %>
   </div>
    <div class="form-group">
      <%= f.label :thumbnail %>
@@ -50,51 +84,15 @@
      <%= image_tag @venue.thumbnail %>
    </div>
 
- <%= f.submit 'Submit', :class => 'btn btn-success' %>
- </div>
- <div class="col-md-6">
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name,{:class => 'form-control',:placeholder => 'Enter name'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone %>
-    <%= f.text_field :phone,{:class => 'form-control',:placeholder => 'Enter phone'} %>
-  </div>
   <div class="form-group">
     <%= f.label :photos %>
     <%#= f.number_field :photos,{:class => 'form-control',:placeholder => 'photos'} %>
   </div>
-  <div class="form-group">
-    <%= f.label :rating %>
-    <%= f.number_field :rating,{:class => 'form-control',:placeholder => 'Enter rating'} %>
-  </div>
+
   <div class="form-group">
     <%= f.label :reportFlag %>
     <%= f.number_field :reportFlag,{:class => 'form-control',:placeholder => 'Enter reportFlag'} %>
   </div>
-  <div class="form-group">
-    <%= f.label :state %>
-    <%= f.text_field :state,{:class => 'form-control',:placeholder => 'Enter address'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tags %>
-    <div id="wrapper">
-      <div id="content">
-        <p>
-    <%= hidden_field_tag :tag_names, @tags , id: "mySingleField" %>
-        </p>
-        <ul id="singleFieldTags"></ul>
-      </div>
-    </div>
-    <%#= f.text_field :tags,{:class => 'form-control',:placeholder => 'Enter tags'} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :zip %>
-    <%= f.text_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
-  </div>
-
 
    <!--<div id="wrapper">-->
      <!--<div id="content">-->
@@ -105,6 +103,7 @@
      <!--</div>-->
    <!--</div>-->
 
+   <%= f.submit 'Submit', :class => 'btn btn-success' %>
  </div>
 <% end %>
 

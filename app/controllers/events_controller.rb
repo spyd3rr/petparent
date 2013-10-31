@@ -1,9 +1,11 @@
 class EventsController < ApplicationController
   # GET /events
   # GET /events.json
+  helper_method :sort_column, :sort_direction
+
   def index
-    @events = Event.all
-    @venue_names = Venue.all_venues
+    @events = Event.order(sort_column + " " + sort_direction).page(params[:page]).per(10)
+    #@venue_names = Venue.all_venues
 
     respond_to do |format|
       format.html # index.html.erb
@@ -136,4 +138,16 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def sort_column
+    params[:sort] ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+
 end

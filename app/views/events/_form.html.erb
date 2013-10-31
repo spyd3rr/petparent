@@ -11,7 +11,16 @@
     </div>
   <% end %>
 
-  <div class="col-md-6">
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, {:class => 'form-control', :placeholder => 'Enter name'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :venue %>
+      <%= text_field_tag :venue_name, (@event.venue ? @event.venue.name : ""), :size => '30', :class => 'form-control', :id => 'venue-name', :placeholder => 'Enter venue' %>
+      <%= hidden_field_tag :venue_id, (@event.venue ? @event.venue.id : nil) %>
+    </div>
     <div class="form-group">
       <%= f.label :address %>
       <%= f.text_field :address, {:class => 'form-control', :placeholder => 'Enter address'} %>
@@ -25,6 +34,14 @@
       <%= f.text_field :city, {:class => 'form-control', :placeholder => 'Enter city'} %>
     </div>
     <div class="form-group">
+      <%= f.label :state %>
+      <%= f.text_field :state, {:class => 'form-control', :placeholder => 'Enter startDate'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :zip %>
+      <%= f.text_field :zip, {:class => 'form-control', :placeholder => 'Enter zip'} %>
+    </div>
+    <div class="form-group">
       <%= f.label :coordinate %>
       <div class="form-inline">
         <div class="form-group">
@@ -36,23 +53,12 @@
       </div>
     </div>
     <div class="form-group">
-      <%= f.label :description %>
-      <%= f.text_area :description, {:class => 'form-control ckeditor1', :rows => "3", :placeholder => 'Enter description'} %>
+      <%= f.label :startDate %>
+      <%= f.text_field :startDate,{:class => 'form-control'} %>
     </div>
     <div class="form-group">
       <%= f.label :endDate %>
       <%= f.text_field :endDate, {:id => "datepicker", :class => 'form-control'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :image %>
-      <%#= f.text_field :image %>
-    </div>
-    <%= f.submit 'Submit', :class => 'btn btn-success' %>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, {:class => 'form-control', :placeholder => 'Enter name'} %>
     </div>
     <div class="form-group">
       <%= f.label :price %>
@@ -61,18 +67,6 @@
         <%= f.number_field :price, {:class => 'form-control'} %>
         <span class="input-group-addon">.00</span>
       </div>
-    </div>
-    <div class="form-group">
-      <%= f.label :reportFlag %>
-      <%= f.number_field :reportFlag, {:class => 'form-control', :placeholder => 'Enter reportFlag'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :startDate %>
-      <%= f.text_field :startDate, {:class => 'form-control'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :state %>
-      <%= f.text_field :state, {:class => 'form-control', :placeholder => 'Enter startDate'} %>
     </div>
     <div class="form-group">
       <%= f.label :tags %>
@@ -87,6 +81,21 @@
       <%#= f.text_field :tags,{:class => 'form-control',:placeholder => 'Enter tags'} %>
     </div>
     <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, {:class => 'form-control ckeditor1', :rows => "3", :placeholder => 'Enter description'} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image %>
+      <%#= f.text_field :image %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :reportFlag %>
+      <%= f.number_field :reportFlag, {:class => 'form-control', :placeholder => 'Enter reportFlag'} %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :thumbnail %>
       <%= f.file_field :thumbnail %>
       <%= image_tag @event.image, :class => 'img-circle', :size => "50x40" %>
@@ -96,15 +105,9 @@
       <!--<%#= f.label :user %>-->
       <!--<%#= f.number_field :user %>-->
     <!--</div>-->
-    <div class="form-group">
-      <%= f.label :venue %>
-      <%= text_field_tag :venue_name, (@event.venue ? @event.venue.name : ""), :size => '30', :class => 'form-control', :id => 'venue-name', :placeholder => 'Enter venue' %>
-      <%= hidden_field_tag :venue_id, (@event.venue ? @event.venue.id : nil) %>
-    </div>
-    <div class="form-group">
-      <%= f.label :zip %>
-      <%= f.text_field :zip, {:class => 'form-control', :placeholder => 'Enter zip'} %>
-    </div>
+
+
+    <%= f.submit 'Submit', :class => 'btn btn-success' %>
   </div>
 <% end %>
 

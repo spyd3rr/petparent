@@ -1,8 +1,10 @@
 class PetsController < ApplicationController
   # GET /pets
   # GET /pets.json
+  helper_method :sort_column, :sort_direction
+
   def index
-    @pets = Pet.all
+    @pets = Pet.order(sort_column + " " + sort_direction).page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,5 +81,15 @@ class PetsController < ApplicationController
       format.html { redirect_to pets_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def sort_column
+    params[:sort] ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

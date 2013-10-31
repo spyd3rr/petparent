@@ -3,28 +3,28 @@
   <div class="col-lg-6">
     <h1>Listing lost_pets</h1>
   </div>
-  <div class="col-lg-5">
+  <div class="col-lg-5"> <br>
     <%= link_to 'New Lost pet', new_lost_pet_path, :class =>'btn btn-primary pull-right' %>
   </div>
 </div>
 
 <table class="table table-bordered table-striped">
   <tr>
-    <th>Name</th>
-    <th>Breed</th>
-    <th>Address</th>
-    <th>Phone</th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "breed" %></th>
+    <th><%= sortable "address" %></th>
+    <th><%= sortable "phone" %></th>
   <!--  <th>Address2</th>-->
 
    <!-- <th>City</th>-->
     <!--<th>Coordinate</th>-->
-    <th>Email</th>
+    <th><%= sortable "email" %></th>
   <!--  <th>Image</th>-->
   <!--  <th>Message</th>-->
     <!--<th>Shelters</th>-->
   <!--  <th>State</th>-->
    <!-- <th>Thumbnail</th>-->
-    <th>User</th>
+    <th><%= sortable "user" %></th>
     <!--<th>Zip</th>-->
     <th></th>
 
@@ -54,4 +54,4 @@
 </table>
 
 
-
+<%= will_paginate @lost_pets %>

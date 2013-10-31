@@ -3,7 +3,7 @@
   <div class="col-lg-6">
     <h1>Listing photos</h1>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-6"> <br>
     <%= link_to 'New Photo', new_photo_path, {:class => 'btn btn-primary pull-right'} %>
   </div>
 </div>
@@ -31,6 +31,8 @@
   </tr>
 <% end %>
 </table>
+
+<%= will_paginate @photos %>
 
 
 

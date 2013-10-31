@@ -1,8 +1,12 @@
 class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
+  helper_method :sort_column, :sort_direction
+
   def index
-    @venues = Venue.all
+    #@venues = Venue.all
+
+    @venues = Venue.order(sort_column + " " + sort_direction).page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -132,6 +136,16 @@ class VenuesController < ApplicationController
     end
 
     render json: @venues
+  end
+
+  private
+
+  def sort_column
+    params[:sort] ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
 

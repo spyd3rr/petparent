@@ -2,7 +2,7 @@
   <div class="col-lg-6">
     <h1>Listing tags</h1>
   </div>
-  <div class="col-lg-5">
+  <div class="col-lg-5"> <br>
     <%= link_to 'New Tag', new_tag_path, {:class => 'btn btn-primary pull-right'} %>
   </div>
 </div>
@@ -10,7 +10,7 @@
 
 <table class="table table-bordered table-striped">
   <tr>
-    <th>Name</th>
+    <th><%= sortable "name" %></th>
     <th></th>
   </tr>
 
@@ -24,3 +24,4 @@
   <% end %>
 </table>
 
+<%= will_paginate @tags %>

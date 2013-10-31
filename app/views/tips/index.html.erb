@@ -3,18 +3,18 @@
   <div class="col-lg-6">
     <h1>Listing tips</h1>
   </div>
-  <div class="col-lg-5">
+  <div class="col-lg-5"> <br>
     <%=  link_to 'New Tip', new_tip_path, :class =>'btn btn-primary pull-right' %>
   </div>
 </div>
 
 <table class="table table-bordered table-striped">
   <tr>
-    <th>Description</th>
-    <th>Message</th>
-    <th>Reportflag</th>
-    <th>User</th>
-    <th>Venue</th>
+    <th><%= sortable "description" %></th>
+    <th><%= sortable "message" %></th>
+    <th><%= sortable "reportflag" %></th>
+    <th><%= sortable "user" %></th>
+    <th><%= sortable "venue" %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -33,5 +33,7 @@
   </tr>
 <% end %>
 </table>
+
+<%= will_paginate @tips %>
 
 

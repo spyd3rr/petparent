@@ -7,11 +7,11 @@
   </div>
 </div>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped pretty">
   <tr>
-    <th>Name</th>
-    <th>Venue Name</th>
-    <th>Address</th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "venue_name" %></th>
+    <th><%= sortable "address" %></th>
     <!--<th>Address2</th>-->
     <!--<th>City</th>-->
    <!-- <th>Coordinate</th>-->
@@ -20,9 +20,10 @@
     <!--<th>Image</th>-->
     <!--<th>Price</th>-->
     <!--<th>Reportflag</th>-->
-    <th>State</th>
-    <th>Startdate</th>
-    <th>Tags</th>
+    <th><%= sortable "state" %></th>
+    <th>StartDate</th>
+    <th>EndDate</th>
+    <!--<th><%#= sortable "tags" %></th>-->
     <!--<th>Thumbnail</th>-->
     <!--<th>User</th>-->
 
@@ -44,17 +45,24 @@
 
     <!--<td><%#= event.price %></td>-->
     <!--<td><%#= event.reportFlag %></td>-->
-    <td><%= event.state %></td>
-    <td><%= event.startDate.to_date unless event.startDate.nil? %></td>
 
-    <td><%= event.event_tags %></td>
+    <td><%= event.state %></td>
+    <!--<td><%#= event.startDate unless event.startDate.nil? %></td>-->
+    <td>
+      <% e=Parse::Query.new("Event").eq("objectId", event.id).get.first %>
+      <%= e["startDate"].to_time.localtime if e["startDate"] %>
+    </td>
+    <td><%= e["endDate"].to_time.localtime if e["endDate"] %></td>
+
+    <!--<td><%#= event.event_tags %></td>-->
     <!--<td><%#= event.thumbnail %></td>-->
     <!--<td><%#= event.user %></td>-->
 
    <!-- <td><%#= event.zip %></td>-->
-    <td>
-    <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
+
+<%= will_paginate @events %>
 

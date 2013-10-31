@@ -3,28 +3,29 @@
   <div class="col-lg-6">
     <h1>Listing venues</h1>
   </div>
-  <div class="col-lg-5">
-    <%= link_to 'New Venue', new_venue_path,{:class => 'btn btn-lg btn-primary'} %>
+  <div class="col-lg-5"><br>
+    <%= link_to 'New Venue', new_venue_path,{:class => 'btn btn-primary pull-right'} %>
   </div>
 </div>
 
 <table class="table table-bordered table-striped">
   <tr>
-    <th>Name</th>
-    <th>Address</th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "address" %></th>
    <!-- <th>Address2</th>-->
-    <th>City</th>
+    <th><%= sortable "city" %></th>
     <!--<th>Coordinate</th>-->
     <!--<th>Description</th>-->
     <!--<th>Favoriteusers</th>-->
     <!--<th>Image</th>-->
 
-    <!--<th>Phone</th>-->
+    <th><%= sortable "phone" %></th>
     <!--<th>Photos</th>-->
     <!--<th>Rating</th>-->
     <!--<th>Reportflag</th>-->
-    <th>Events Count</th>
-    <th>Tags</th>
+    <th><%= sortable "state" %></th>
+    <!--<th>Events Count</th>-->
+    <!--<th><%#= sortable "tags" %></th>-->
     <!-- <th>Thumbnail</th>-->
     <!--<th>Tips</th>-->
    <!-- <th>Zip</th>-->
@@ -45,13 +46,16 @@
     <!--<td><%#= venue.favoriteUsers %></td>-->
     <!--<td><%#= venue.image %></td>-->
 
-    <!--<td><%#= venue.phone %></td>-->
+    <td><%= venue.phone %></td>
     <!--<td><%#= venue.photos %></td>-->
     <!--<td><%#= venue.rating %></td>-->
     <!--<td><%#= venue.reportFlag %></td>-->
-    <!--<td><%#= venue.state %></td>-->
-    <td>5</td>
-    <td><%= venue.venue_tags %></td>
+    <td><%= venue.state %></td>
+    <!--<td>-->
+      <%# v=Parse::Query.new("Venue").eq("objectId", venue.id).get.first %>
+      <%#= Parse::Query.new("Event").eq("venue", v.pointer).get.size if v %>
+    <!--</td>-->
+    <!--<td><%#= venue.venue_tags %></td>-->
    <!--<td><%#= image_tag venue.thumbnail %></td> -->
     <!--<td><%#= venue.tips %></td>-->
    <!-- <td><%#= venue.zip %></td>-->
@@ -61,6 +65,8 @@
   </tr>
 <% end %>
 </table>
+
+<%= will_paginate @venues %>
 
 
 

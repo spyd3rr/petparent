@@ -3,20 +3,20 @@
   <div class="col-lg-6">
     <h1>Listing pets</h1>
   </div>
-  <div class="col-lg-5">
+  <div class="col-lg-5">  <br>
     <%= link_to 'New Pet', new_pet_path , :class =>'btn btn-primary pull-right'%>
   </div>
 </div>
 
 <table class="table table-bordered table-striped">
   <tr>
-    <th>Name</th>
-    <th>Breed</th>
-    <th>Description</th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "breed" %></th>
+    <th><%= sortable "description" %></th>
    <!-- <th>Mainphoto</th>
     <th>Photos</th>-->
-    <th>Reportflag</th>
-    <th>User</th>
+    <th><%= sortable "reportflag" %></th>
+    <th><%= sortable "user" %></th>
     <th></th>
 
   </tr>
@@ -36,4 +36,6 @@
 </table>
 
 <br />
+
+<%= will_paginate @pets %>
 
