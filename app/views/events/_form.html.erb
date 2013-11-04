@@ -21,37 +21,8 @@
       <%= text_field_tag :venue_name, (@event.venue ? @event.venue.name : ""), :size => '30', :class => 'form-control', :id => 'venue-name', :placeholder => 'Enter venue' %>
       <%= hidden_field_tag :venue_id, (@event.venue ? @event.venue.id : nil) %>
     </div>
-    <div class="form-group">
-      <%= f.label :address %>
-      <%= f.text_field :address, {:class => 'form-control', :placeholder => 'Enter address'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :address2 %>
-      <%= f.text_field :address2, {:class => 'form-control', :placeholder => 'Enter address2'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :city %>
-      <%= f.text_field :city, {:class => 'form-control', :placeholder => 'Enter city'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :state %>
-      <%= f.text_field :state, {:class => 'form-control', :placeholder => 'Enter startDate'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :zip %>
-      <%= f.text_field :zip, {:class => 'form-control', :placeholder => 'Enter zip'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :coordinate %>
-      <div class="form-inline">
-        <div class="form-group">
-          <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?), :size => '30', :class => 'form-control', :placeholder => 'Enter latitude' %>
-        </div>
-        <div class="form-group">
-          <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?), :size => '27', :class => 'form-control', :placeholder => 'Enter longitude' %>
-        </div>
-      </div>
-    </div>
+
+
     <div class="form-group">
       <%= f.label :startDate %>
       <% start_date = @e["startDate"].to_time.localtime if @e and @e["startDate"] %>
