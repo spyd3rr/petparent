@@ -1,5 +1,7 @@
 <h1>Editing event</h1>
 <div class="row">
+  <% @e=Parse::Query.new("Event").eq("objectId", @event.id).get.first %>
+
 <%= render 'form' %>
 </div>
 

@@ -29,7 +29,8 @@
 
 <p>
   <b>Enddate:</b>
-  <%= @event.endDate %>
+  <% e=Parse::Query.new("Event").eq("objectId", @event.id).get.first %>
+  <%= e["endDate"].to_time.localtime if e["startDate"] %>
 </p>
 
 
@@ -50,7 +51,8 @@
 
 <p>
   <b>Startdate:</b>
-  <%= @event.startDate %>
+  <%= e["startDate"].to_time.localtime if e["startDate"] %>
+  <%#= @event.startDate %>
 </p>
 
 <p>

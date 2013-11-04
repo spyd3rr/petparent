@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @events = Event.order(sort_column + " " + sort_direction).page(params[:page]).per(10)
+    @events = Event.order(sort_column + " " + sort_direction).page(params[:page]).per(30)
     #@venue_names = Venue.all_venues
 
     respond_to do |format|
@@ -52,18 +52,24 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(params[:event])
-    #@venue_names = Venue.all_venues
-
     @event.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:event][:price] = params[:event][:price].to_f
     params[:event][:reportFlag] = params[:event][:reportFlag].to_f
-    params[:event][:endDate] = params[:event][:endDate].to_date
-    params[:event][:startDate] = params[:event][:startDate].to_date
+    params[:event][:endDate] = params[:event][:endDate].to_datetime
+    params[:event][:startDate] = params[:event][:startDate].to_datetime
 
+    #if venue presents
     if params[:venue_id]
       venue = Parse::Query.new("Venue").eq("objectId", params[:venue_id]).get.first
       params[:event][:venue]=venue.pointer if venue
     end
+
+    #if Users presents
+    if params[:user_id]
+      user = Parse::Query.new("User").eq("objectId", params[:user_id]).get.first
+      params[:event][:user]=user.pointer if user
+    end
+
     if params[:tag_names]
       #venue = Parse::Query.new("Venue").eq("objectId", @venue.id).get.first
       ids=Venue.tags_to_ids(params[:tag_names])
@@ -92,8 +98,8 @@ class EventsController < ApplicationController
     @event.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:event][:price] = params[:event][:price].to_f
     params[:event][:reportFlag] = params[:event][:reportFlag].to_f
-    params[:event][:endDate] = params[:event][:endDate].to_date
-    params[:event][:startDate] = params[:event][:startDate].to_date
+    params[:event][:endDate] = params[:event][:endDate].to_datetime
+    params[:event][:startDate] = params[:event][:startDate].to_datetime
 
     #if venue presents
     if params[:venue_id]
@@ -103,8 +109,8 @@ class EventsController < ApplicationController
 
     #if Users presents
     if params[:user_id]
-      venue = Parse::Query.new("Venue").eq("objectId", params[:venue_id]).get.first
-      params[:event][:venue]=venue.pointer if venue
+      user = Parse::Query.new("User").eq("objectId", params[:user_id]).get.first
+      params[:event][:user]=user.pointer if user
     end
 
     if params[:tag_names]

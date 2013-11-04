@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="col-md-12">
+  <div class="col-md-6">
     <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, {:class => 'form-control', :placeholder => 'Enter name'} %>
@@ -54,11 +54,15 @@
     </div>
     <div class="form-group">
       <%= f.label :startDate %>
-      <%= f.text_field :startDate,{:class => 'form-control'} %>
+      <% start_date = @e["startDate"].to_time.localtime if @e and @e["startDate"] %>
+      <%= text_field :event, :startDate, :value => start_date, :id => "datepicker", :class => 'form-control datetimepicker' %>
+      <%#= f.text_field :startDate,{:id => "datepicker1", :class => 'form-control'} %>
     </div>
     <div class="form-group">
       <%= f.label :endDate %>
-      <%= f.text_field :endDate, {:id => "datepicker", :class => 'form-control'} %>
+      <% end_date = @e["endDate"].to_time.localtime if @e and @e["endDate"] %>
+      <%= text_field :event, :endDate, :value => end_date, :id => "datepicker1", :class => 'form-control datetimepicker' %>
+      <%#= f.text_field :endDate, {:id => "datepicker", :class => 'form-control datetimepicker'} %>
     </div>
     <div class="form-group">
       <%= f.label :price %>
@@ -151,17 +155,31 @@
 
   });
 
-  $('.ckeditor1').ckeditor({
-    toolbar: 'Pure',
-    width: 522,
-    height: 70,
-    pasteFromWordRemoveFontStyles: false,
-    pasteFromWordRemoveStyles: false,
-    forcePasteAsPlainText: false
-  });
+//  $('.ckeditor1').ckeditor({
+//    toolbar: 'Pure',
+//    width: 522,
+//    height: 70,
+//    pasteFromWordRemoveFontStyles: false,
+//    pasteFromWordRemoveStyles: false,
+//    forcePasteAsPlainText: false
+//  });
 
 
 </script>
 
 
+
+<script type="text/javascript">
+    $(function() {
+        $( "#datepicker" ).datetimepicker({
+            dateFormat: "yy-mm-dd",
+            timeFormat: "hh:mm TT"
+        });
+        $( "#datepicker1" ).datetimepicker({
+            dateFormat: "yy-mm-dd",
+            timeFormat: "hh:mm TT"
+        });
+    });
+
+</script>
 

@@ -6,7 +6,7 @@ class VenuesController < ApplicationController
   def index
     #@venues = Venue.all
 
-    @venues = Venue.order(sort_column + " " + sort_direction).page(params[:page]).per(10)
+    @venues = Venue.order(sort_column + " " + sort_direction).page(params[:page]).per(30)
 
     respond_to do |format|
       format.html # index.html.erb
