@@ -41,10 +41,13 @@
     <%= f.label :coordinate %>
     <div class="form-inline">
       <div class="form-group">
-        <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '30',:class => 'form-control',:placeholder => 'Enter latitude' %>
+        <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter latitude' %>
       </div>
       <div class="form-group">
-        <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '29',:class => 'form-control',:placeholder => 'Enter longitude' %>
+        <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter longitude' %>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-default" id="find">Find</button>
       </div>
     </div>
   </div>
@@ -128,5 +131,52 @@
 
     });
 
+
+
+
+
+</script>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+//    // Trigger geocoding request.
+//    $("#find").click(function(){
+//        var geocoder = new google.maps.Geocoder();
+//        var address = $('#venue_address').val() + ' ' + $('#venue_address2').val() + ' ' + $('#venue_city').val() + ' ' + $('#venue_state').val() + ' ' + $('#venue_zip').val();
+//
+//        geocoder.geocode( { 'address': address}, function(results, status) {
+//
+//            if (status == google.maps.GeocoderStatus.OK) {
+//                var latitude = results[0].geometry.location.lat();
+//                var longitude = results[0].geometry.location.lng();
+//                //alert(latitude +' ' +longitude);
+//                $('#latitude').val(latitude)
+//                $('#longitude').val(longitude)
+//            }
+//        });
+//    });
+
+</script>
+
+<script type="text/javascript">
+    $("#find").click(function(){
+    //var address='B-56+Sector-64+Noida+up+india';//address which you want Longitude and Latitude
+    var address = $('#venue_address').val() + ' ' + $('#venue_address2').val() + ' ' + $('#venue_city').val() + ' ' + $('#venue_state').val() + ' ' + $('#venue_zip').val();
+    jQuery.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "http://maps.googleapis.com/maps/api/geocode/json",
+        data: {'address': address,'sensor':false},
+        success: function(data){
+            if(data.results.length){
+                jQuery('#latitude').val(data.results[0].geometry.location.lat);
+                jQuery('#longitude').val(data.results[0].geometry.location.lng);
+            }else{
+                jQuery('#latitude').val('');
+                jQuery('#longitude').val('');
+            }
+        }
+    });
+    });
 
 </script>
