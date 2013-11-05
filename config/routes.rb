@@ -1,5 +1,7 @@
 Petparent::Application.routes.draw do
-  get "log_in" => "sessions#new", :as => "log_in"  
+
+  #scope '/admin' do
+  get "log_in" => "sessions#new", :as => "log_in"
   get "log_out" => "sessions#destroy", :as => "log_out"  
   
   get "sign_up" => "users#new", :as => "sign_up"  
@@ -18,6 +20,5 @@ Petparent::Application.routes.draw do
   resources :lost_pets
   resources :events
   resources :photos
-
 
 end

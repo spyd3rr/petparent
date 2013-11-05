@@ -86,10 +86,12 @@
   </div>
 <% end %>
 
+
 <script type="text/javascript">
   $("#venue-name").autocomplete({
     source: function (request, response) {
-      $.getJSON("/venues/find?contains=" + request.term, function (data) {
+      //$.getJSON("/venues/find?contains=" + request.term, function (data) {
+      $.getJSON("<%= find_venues_path %>", {"contains":request.term}, function (data) {
         // console.log(data);
         response(data);
       });
