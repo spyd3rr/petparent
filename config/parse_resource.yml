@@ -3,9 +3,9 @@ development:
   master_key: UqgvyrSCULDh21QQbENL6lBkOSTGRfIb50owJpiI
 
 test:
-  app_id: 1234567890
-  master_key: abcdefgh
+  app_id: 4LJ8r1x6bT34iJcAH360QBrvrjtomkOEnw6V2ODD
+  master_key: UqgvyrSCULDh21QQbENL6lBkOSTGRfIb50owJpiI
 
 production:
-  app_id: 1234567890
-  master_key: abcdefgh
+  app_id: 4LJ8r1x6bT34iJcAH360QBrvrjtomkOEnw6V2ODD
+  master_key: UqgvyrSCULDh21QQbENL6lBkOSTGRfIb50owJpiI

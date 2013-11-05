@@ -45,6 +45,7 @@ gem "rmagick"
 gem "carrierwave"
 gem "parse_resource_rails"
 gem 'parse-ruby-client'
+gem "simple_form"
 
 gem 'execjs'
 gem 'therubyracer'
