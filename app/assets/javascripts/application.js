@@ -9,7 +9,6 @@
 //= require jquery-ui
 //= require bootstrap
 //= require ckeditor/ckeditor
-//= require_directory ./ckeditor
 //= require_self
 //= require_tree .
 
