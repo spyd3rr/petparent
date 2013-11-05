@@ -90,7 +90,7 @@
   $("#venue-name").autocomplete({
     source: function (request, response) {
       $.getJSON("/venues/find?contains=" + request.term, function (data) {
-        // console.log(data);
+        console.log(data);
         response(data);
       });
     },
