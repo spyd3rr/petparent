@@ -1,6 +1,6 @@
 class Event < ParseResource::Base
 
-  fields :address, :address2, :city, :coordinate, :description, :endDate, :image, :name, :price, :reportFlag, :startDate, :state, :tags, :thumbnail, :user, :venue, :zip
+  fields :address, :address2, :city, :coordinate, :description, :endDate, :image, :name, :price, :reportFlag, :startDate, :state, :tags, :thumbnail, :user, :venue, :zip, :websiteUrl, :ticketingUrl
 
   validates_presence_of :name
 
@@ -11,7 +11,7 @@ class Event < ParseResource::Base
       hash_tags.each_with_index do |hash_tag,i|
         #raise hash_tag.to_yaml
         tag = Tag.find hash_tag["objectId"]
-        tag_names << tag.name
+        tag_names << tag.name if tag
       end
     end
     tag_names.join(",")

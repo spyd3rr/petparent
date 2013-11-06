@@ -2,13 +2,13 @@ class Venue < ParseResource::Base
   #has_many :events, :dependent => :destroy
   #has_many :tags
 
-  fields :address, :address2, :city, :coordinate, :description, :favoriteUsers, :image, :name, :phone, :photos, :rating, :reportFlag, :state, :tags, :thumbnail, :tips, :zip, :venue_name
+  fields :address, :address2, :city, :coordinate, :description, :favoriteUsers, :image, :name, :phone, :photos, :rating, :reportFlag, :state, :tags, :thumbnail, :tips, :zip, :nameStripped, :websiteUrl
 
   validates_presence_of :name
   before_save :copy_venue
 
   def copy_venue
-    self.venue_name = self.name.downcase
+    self.nameStripped = self.name.downcase.gsub(/[^0-9A-Za-z' ']/, '')
   end
 
   #mount_uploader :thumbnail, ImageUploader

@@ -65,8 +65,8 @@ class EventsController < ApplicationController
     end
 
     #if Users presents
-    if params[:user_id]
-      user = Parse::Query.new("User").eq("objectId", params[:user_id]).get.first
+    if session[:user_id]
+      user = Parse::Query.new("User").eq("objectId", session[:user_id]).get.first
       params[:event][:user]=user.pointer if user
     end
 
@@ -108,8 +108,9 @@ class EventsController < ApplicationController
     end
 
     #if Users presents
-    if params[:user_id]
-      user = Parse::Query.new("User").eq("objectId", params[:user_id]).get.first
+    if session[:user_id]
+      #raise session[:user_id]
+      user = Parse::Query.new("User").eq("objectId", session[:user_id]).get.first
       params[:event][:user]=user.pointer if user
     end
 
