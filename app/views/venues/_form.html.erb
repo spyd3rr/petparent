@@ -74,7 +74,7 @@
 
    <div class="form-group">
      <%= f.label :description %>
-     <%= f.text_area :description,{:class => 'form-control',:rows => "3",:placeholder => 'Enter description'} %>
+     <%= f.text_area :description,{:class => 'form-control ckeditor',:rows => "3",:placeholder => 'Enter description'} %>
    </div>
   <div class="form-group">
     <%= f.label :image %>
@@ -96,6 +96,11 @@
     <%= f.label :reportFlag %>
     <%= f.number_field :reportFlag,{:class => 'form-control',:placeholder => 'Enter reportFlag'} %>
   </div>
+
+   <div class="form-group">
+     <%= f.label :websiteUrl %>
+     <%= f.number_field :websiteUrl,{:class => 'form-control',:placeholder => 'Enter websiteUrl'} %>
+   </div>
 
    <!--<div id="wrapper">-->
      <!--<div id="content">-->
