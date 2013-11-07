@@ -17,7 +17,6 @@ end
 
 gem 'jquery-rails'
 
-gem 'ckeditor_rails'
 
 #gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
 
@@ -39,7 +38,7 @@ group :test do
 end
 
 gem "kaminari" # optional for pagination support
-gem "parse_resource"#, "~> 1.8.0"
+gem "parse_resource", "~> 1.8.0"
 
 gem "rmagick"
 gem "carrierwave"
