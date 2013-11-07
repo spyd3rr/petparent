@@ -43,6 +43,7 @@ class VenuesController < ApplicationController
     @tags = @venue.venue_tags
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)
+    @photos = get_photos(@venue.id)
   end
 
   # POST /venues
@@ -63,8 +64,8 @@ class VenuesController < ApplicationController
     end
 
 
-    params[:venue][:image] = Venue.image_upload(params[:venue][:image]) if params[:venue][:image]
-    params[:venue][:thumbnail] = Venue.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
+    params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
+    params[:venue][:thumbnail] = Photo.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
 
     respond_to do |format|
       if @venue.save
@@ -96,8 +97,8 @@ class VenuesController < ApplicationController
     end
 
 
-    params[:venue][:image] = Venue.image_upload(params[:venue][:image]) if params[:venue][:image]
-    params[:venue][:thumbnail] = Venue.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
+    params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
+    params[:venue][:thumbnail] = Photo.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
 
 
     respond_to do |format|
@@ -136,6 +137,15 @@ class VenuesController < ApplicationController
     end
 
     render json: @venues
+  end
+
+  def multi_upload
+    Photo.create
+    Photo.set_photos("Venue",photo_id,venue_id)
+  end
+
+  def get_photos(id)
+    photos=Photo.get_photos("Venue",id)
   end
 
   private

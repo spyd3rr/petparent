@@ -1,4 +1,4 @@
-<%= form_for @venue,:html => {:multipart => true, :role => 'form'} do |f| %>
+<%= form_for @venue,:html => {:id => "venue_settings",:multipart => true, :role => 'form'} do |f| %>
     <% venue=@venue %>
   <% if @venue.errors.any? %>
     <div id="error_explanation" class="alert alert-warning">
@@ -90,6 +90,12 @@
   <div class="form-group">
     <%= f.label :photos %>
     <%#= f.number_field :photos,{:class => 'form-control',:placeholder => 'photos'} %>
+    <input type="file" name="photo[image]" id="venue_image">
+    <br>
+    <a id="fileclick" href="">Add pic</a>
+    <br>
+    <br>
+    <%= render "photo" %>
   </div>
 
   <div class="form-group">
@@ -111,9 +117,12 @@
      <!--</div>-->
    <!--</div>-->
 
+
    <%= f.submit 'Submit', :class => 'btn btn-success' %>
  </div>
 <% end %>
+
+
 
 <script>
     $(function(){
@@ -184,4 +193,34 @@
     });
     });
 
+    $(function () {
+        $("#fileclick").click(function() {
+            if ($("#venue_image").val() == ""){
+                confirmURL("nofile");
+                return false;
+            } else {
+                $('<div class="ajaxLoader"><img src="/assets/ajax-loader.gif"></div>').appendTo('#links');
+                $("#venue_settings").ajaxSubmit({
+                    beforeSerialize: function(form, options) {
+                    },
+                    url: "/pictures/createFromData",
+                    success:function(data) {
+                        var numThumbs = document.getElementsByClassName("gallery");
+                        var newPicThumb = '<div class="pictures field gallery" index="' + numThumbs + ' ">';
+                        newPicThumb += '<div class="pictures field gallery" index="' + numThumbs + '">';
+                        newPicThumb += '<input type="hidden" name="venue[pictures_attributes][' + numThumbs + '][id]" value="' + data.id + '" />';
+                        newPicThumb += '<div style="margin-right:3px;" href="" class="remove-pic">&#10799;</div>';
+                        newPicThumb += '<img style="margin-right:3px;" alt="image_thumb" src="' + data.image.thumb.url + '"></div>';
+                        $('.ajaxLoader').detach();
+                        $(newPicThumb).appendTo('#venueThumbs');
+                    },
+                    type: "post",
+                    dataType: "json"
+                });
+                return false;
+            }
+        });
+    });
+
 </script>
+
