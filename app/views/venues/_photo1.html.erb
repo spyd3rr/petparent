@@ -46,9 +46,11 @@
 <!--</div>-->
 
 <div id="links">
-<% @photos.each do |p| %>
-      <a href="<%= p["image"].url %>" title="Sahara Shoot" data-gallery="">
-    <%= image_tag p["thumbnail"].url %>
-      </a>
+<% unless @photos == nil %>
+  <% @photos.each do |p| %>
+        <a href="<%= p["image"].url %>" title="Sahara Shoot" data-gallery="">
+      <%= image_tag p["thumbnail"].url %>
+        </a>
+  <% end %>
 <% end %>
 </div>
