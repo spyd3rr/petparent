@@ -16,7 +16,7 @@ group :assets do
   gem "jquery-fileupload-rails"
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~>1.0.19'
 
 
 #gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'

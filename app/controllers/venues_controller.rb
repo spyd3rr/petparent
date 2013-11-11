@@ -1,3 +1,5 @@
+require 'pp'
+
 class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
@@ -137,13 +139,18 @@ class VenuesController < ApplicationController
 
   # GET /venues/find
   def find
+    pp "Recieved Input:"
+    pp params[:contains]
     if params[:contains]
       searchterm = params[:contains].gsub(/[^0-9a-z ]/i, '')#.upcase
+      pp "Searching for #{searchterm}...."
       #@venues = Venue.where("regexp_replace(name, '[^0-9a-zA-Z ]', '') ilike '%#{searchterm}%'").collect {|v| { :label => "#{v.name} (#{v.address})", :value => "#{v.name} (#{v.address})", :id => v.id } }
-      @venues = Parse::Query.new("Venue").regex("venue_name", searchterm).get
+      @venues = Parse::Query.new("Venue").regex("nameStripped", searchterm).get
       #raise @venues.to_yaml
       @venues = @venues.collect {|v| { :label => "#{v["name"]} (#{v["address"]})", :value => "#{v["name"]} (#{v["address"]})", :id => v.id } }
+      pp @venues
     else
+      pp "No input"
       @venues = []
     end
 

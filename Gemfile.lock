@@ -167,7 +167,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   execjs
   jquery-fileupload-rails
-  jquery-rails
+  jquery-rails (~> 1.0.19)
   kaminari
   paperclip (~> 3.0)
   parse-ruby-client

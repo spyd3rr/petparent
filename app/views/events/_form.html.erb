@@ -67,25 +67,25 @@
 
     <div class="form-group">
       <%= f.label :reportFlag %>
-      <%= f.number_field :reportFlag, {:class => 'form-control', :placeholder => 'Enter reportFlag'} %>
+      <%= f.text_field :reportFlag, {:class => 'form-control', :placeholder => 'Enter reportFlag'} %>
     </div>
 
     <div class="form-group">
       <%= f.label :websiteUrl %>
-      <%= f.number_field :websiteUrl,{:class => 'form-control',:placeholder => 'Enter websiteUrl'} %>
+      <%= f.text_field :websiteUrl,{:class => 'form-control',:placeholder => 'Enter websiteUrl'} %>
     </div>
 
     <div class="form-group">
       <%= f.label :ticketingUrl %>
-      <%= f.number_field :ticketingUrl,{:class => 'form-control',:placeholder => 'Enter ticketingUrl'} %>
+      <%= f.text_field :ticketingUrl,{:class => 'form-control',:placeholder => 'Enter ticketingUrl'} %>
     </div>
 
-    <div class="form-group">
+<!--     <div class="form-group">
       <%= f.label :thumbnail %>
       <%= f.file_field :thumbnail %>
       <%= image_tag @event.image, :class => 'img-circle', :size => "50x40" %>
     </div>
-
+ -->
     <!--<div class="form-group">-->
       <!--<%#= f.label :user %>-->
       <!--<%#= f.number_field :user %>-->
@@ -102,7 +102,7 @@
     source: function (request, response) {
       //$.getJSON("/venues/find?contains=" + request.term, function (data) {
       $.getJSON("<%= find_venues_path %>", {"contains":request.term}, function (data) {
-        // console.log(data);
+        console.log(data);
         response(data);
       });
     },
