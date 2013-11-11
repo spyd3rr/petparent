@@ -77,26 +77,22 @@
      <%= f.text_area :description,{:class => 'form-control ckeditor',:rows => "3",:placeholder => 'Enter description'} %>
    </div>
   <div class="form-group">
-    <%= f.label :image %>
+    <%= f.label :cover_image %>
     <%= f.file_field :image %>
-    <%#= image_tag @venue.image %>
+    <%##= image_tag @venue.image %>
   </div>
-   <div class="form-group">
-     <%= f.label :thumbnail %>
-     <%= f.file_field :thumbnail %>
-     <%= image_tag @venue.thumbnail %>
-   </div>
+   <!--<div class="form-group">-->
+     <!--<%#= f.label :thumbnail %>-->
+     <!--<%#= f.file_field :thumbnail %>-->
+     <!--<%#= image_tag @venue.thumbnail %>-->
+   <!--</div>-->
 
-  <div class="form-group">
-    <%= f.label :photos %>
-    <%#= f.number_field :photos,{:class => 'form-control',:placeholder => 'photos'} %>
-    <input type="file" name="photo[image]" id="venue_image">
-    <br>
-    <a id="fileclick" href="">Add pic</a>
-    <br>
-    <br>
-    <%= render "photo" %>
-  </div>
+  <!--<div class="form-group">-->
+    <!--<%#= f.label :photos %>-->
+    <!--<input type="file" name="photo[image]" id="venue_image">-->
+    <!--<br>-->
+    <!--<br>-->
+  <!--</div>-->
 
   <div class="form-group">
     <%= f.label :reportFlag %>
@@ -117,11 +113,120 @@
      <!--</div>-->
    <!--</div>-->
 
+   <!--<fieldset>-->
+     <!--<input type="file" name="fileselect" id="fileselect" multiple="multiple"></input>-->
+     <!--<input id="uploadbutton" type="button" value="Upload to Parse"/>-->
+   <!--</fieldset>-->
+
+   <div id="paintings">
+     <% @photos.each do |p| %>
+        <%= render "photos/photo" ,:p=>p %>
+     <% end %>
+   </div>
+
+   <%= f.label :image, "Upload Images:" %>
+   <%= f.file_field :image, :multiple=> true, :name=> "painting[image]" %>
+   <br>
+   <br>
 
    <%= f.submit 'Submit', :class => 'btn btn-success' %>
  </div>
 <% end %>
 
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>
+
+
+
+
+<script type="text/javascript">
+    $(function() {
+        var file;
+
+        // Set an event listener on the Choose File field.
+        $('#fileselect').bind("change", function(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            // Our file var now holds the selected file
+            file = files[0];
+        });
+
+        // This function is called when the user clicks on Upload to Parse. It will create the REST API request to upload this image to Parse.
+        $('#uploadbutton').click(function() {
+            var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+
+            $.ajax({
+                type: "POST",
+                beforeSend: function(request) {
+                    request.setRequestHeader("X-Parse-Application-Id", '4LJ8r1x6bT34iJcAH360QBrvrjtomkOEnw6V2ODD');
+                    request.setRequestHeader("X-Parse-REST-API-Key", 'Pl5Sphkn6NFqqBnV1VEZWbB6SdcEBUUlNQNqh7db');
+                    request.setRequestHeader("Content-Type", file.type);
+                },
+                url: serverUrl,
+                data: file,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    alert("File available at: " + data.url);
+                },
+                error: function(data) {
+                    var obj = jQuery.parseJSON(data);
+                    alert(obj.error);
+                }
+            });
+        });
+
+
+    });
+
+    (function() {
+
+        jQuery(function() {
+            return $('#venue_settings').fileupload({
+                dataType: "script",
+                add: function(e, data) {
+                    var file, types;
+                    types = /(\.|\/)(gif|jpe?g|png)$/i;
+                    file = data.files[0];
+                    //console.log(file)
+                    if (types.test(file.type) || types.test(file.name)) {
+                        /////////////
+                        //parse_upload(file);
+                        //////////////
+                        data.context = $(tmpl("template-upload", file));
+                        $('#venue_settings').append(data.context);
+                        data.submit();
+                    } else {
+                        return alert("" + file.name + " is not a gif, jpeg, or png image file");
+                    }
+                },
+                progress: function(e, data) {
+                    var progress;
+                    if (data.context) {
+                        progress = parseInt(data.loaded / data.total * 100, 10);
+                        return data.context.find('.bar').css('width', progress + '%');
+                    }
+                }
+            });
+        });
+
+    }).call(this);
+
+    function parse_upload(file)
+    {
+
+                $.get("<%= create_parse_image_photos_path %>", {img_path:data.url,img_name:data.url,img_type:data.url},
+                        function(data){
+
+                        }
+                );
+
+    }
+
+</script>
 
 
 <script>
@@ -153,26 +258,6 @@
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-//    // Trigger geocoding request.
-//    $("#find").click(function(){
-//        var geocoder = new google.maps.Geocoder();
-//        var address = $('#venue_address').val() + ' ' + $('#venue_address2').val() + ' ' + $('#venue_city').val() + ' ' + $('#venue_state').val() + ' ' + $('#venue_zip').val();
-//
-//        geocoder.geocode( { 'address': address}, function(results, status) {
-//
-//            if (status == google.maps.GeocoderStatus.OK) {
-//                var latitude = results[0].geometry.location.lat();
-//                var longitude = results[0].geometry.location.lng();
-//                //alert(latitude +' ' +longitude);
-//                $('#latitude').val(latitude)
-//                $('#longitude').val(longitude)
-//            }
-//        });
-//    });
-
-</script>
-
-<script type="text/javascript">
     $("#find").click(function(){
     //var address='B-56+Sector-64+Noida+up+india';//address which you want Longitude and Latitude
     var address = $('#venue_address').val() + ' ' + $('#venue_address2').val() + ' ' + $('#venue_city').val() + ' ' + $('#venue_state').val() + ' ' + $('#venue_zip').val();
@@ -191,35 +276,6 @@
             }
         }
     });
-    });
-
-    $(function () {
-        $("#fileclick").click(function() {
-            if ($("#venue_image").val() == ""){
-                confirmURL("nofile");
-                return false;
-            } else {
-                $('<div class="ajaxLoader"><img src="/assets/ajax-loader.gif"></div>').appendTo('#links');
-                $("#venue_settings").ajaxSubmit({
-                    beforeSerialize: function(form, options) {
-                    },
-                    url: "/pictures/createFromData",
-                    success:function(data) {
-                        var numThumbs = document.getElementsByClassName("gallery");
-                        var newPicThumb = '<div class="pictures field gallery" index="' + numThumbs + ' ">';
-                        newPicThumb += '<div class="pictures field gallery" index="' + numThumbs + '">';
-                        newPicThumb += '<input type="hidden" name="venue[pictures_attributes][' + numThumbs + '][id]" value="' + data.id + '" />';
-                        newPicThumb += '<div style="margin-right:3px;" href="" class="remove-pic">&#10799;</div>';
-                        newPicThumb += '<img style="margin-right:3px;" alt="image_thumb" src="' + data.image.thumb.url + '"></div>';
-                        $('.ajaxLoader').detach();
-                        $(newPicThumb).appendTo('#venueThumbs');
-                    },
-                    type: "post",
-                    dataType: "json"
-                });
-                return false;
-            }
-        });
     });
 
 </script>

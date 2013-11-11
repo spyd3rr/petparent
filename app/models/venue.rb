@@ -7,10 +7,15 @@ class Venue < ParseResource::Base
   validates_presence_of :name
   before_save :copy_venue
 
+
+  #include Paperclip::Glue
+  #has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+
   def copy_venue
     self.nameStripped = self.name.downcase.gsub(/[^0-9A-Za-z' ']/, '')
   end
 
+  #include CarrierWave::Uploader
   #mount_uploader :thumbnail, ImageUploader
 
   def venue_tags

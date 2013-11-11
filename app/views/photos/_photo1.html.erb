@@ -1,0 +1,10 @@
+<div class="painting">
+  <% if p.image %>
+      <%= image_tag p.image.url , :size => "50x50"%>
+  <% end %>
+  <div class="actions">
+    <%#= link_to "edit", edit_painting_path(painting) %> |
+    <%#= link_to "remove", painting, :confirm => 'Are you sure?', :method => :delete %>
+  </div>
+</div>
+
