@@ -12,6 +12,7 @@ Petparent::Application.routes.draw do
   resources :venues do
     collection do
       get 'find'
+      post 'upload_images'
     end
   end
   resources :tips
@@ -19,6 +20,11 @@ Petparent::Application.routes.draw do
   resources :pets
   resources :lost_pets
   resources :events
-  resources :photos
+
+  resources :photos do
+    collection do
+      get 'create_parse_image'
+    end
+  end
 
 end

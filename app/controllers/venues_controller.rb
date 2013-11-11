@@ -31,6 +31,7 @@ class VenuesController < ApplicationController
     @venue = Venue.new
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)
+    @photos = []
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @venue }
@@ -49,7 +50,8 @@ class VenuesController < ApplicationController
   # POST /venues
   # POST /venues.json
   def create
-
+    @photos = []
+    #raise params[:venue].to_yaml
     @venue = Venue.new(params[:venue])
     @venue.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:venue][:rating] = params[:venue][:rating].to_f
@@ -82,6 +84,7 @@ class VenuesController < ApplicationController
   # PUT /venues/1.json
   def update
     #raise params[:image].to_yaml
+    #raise params[:venue].to_yaml
     @venue = Venue.find(params[:id])
     @venue.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:venue][:rating] = params[:venue][:rating].to_f
@@ -96,20 +99,18 @@ class VenuesController < ApplicationController
       #venue.save
     end
 
+    if params[:painting][:image]
+      image = Photo.image_upload(params[:painting][:image])
+      @painting = Photo.create_photos(image)
+      photo_id = @painting.id
+      Photo.set_photos("Venue",photo_id,@venue.id)
+    end
 
     params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
     params[:venue][:thumbnail] = Photo.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
 
 
-    respond_to do |format|
-      if @venue.update_attributes(params[:venue])
-        format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @venue.errors, status: :unprocessable_entity }
-      end
-    end
+
   end
 
   # DELETE /venues/1
@@ -146,6 +147,10 @@ class VenuesController < ApplicationController
 
   def get_photos(id)
     photos=Photo.get_photos("Venue",id)
+  end
+
+  def upload_images
+
   end
 
   private
