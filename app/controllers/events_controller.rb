@@ -121,8 +121,7 @@ class EventsController < ApplicationController
       params[:event][:tags] = tags_array
       #venue.save
     end
-    params[:event][:image] = Photo.image_upload(params[:event][:image]) if params[:event][:image]
-    params[:event][:thumbnail] = params[:event][:image]
+    params[:event][:thumbnail] = Photo.image_upload(params[:event][:thumbnail]) if params[:event][:thumbnail]
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

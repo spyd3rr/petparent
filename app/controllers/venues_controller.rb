@@ -38,16 +38,11 @@ class VenuesController < ApplicationController
       format.html # new.html.erb
       format.json { render json: @venue }
     end
-
   end
 
   # GET /venues/1/edit
   def edit
     @venue = Venue.find(params[:id])
-   unless @venue
-      @venue = Venue.create(:name=>'venue name')
-      #raise @venue.id.inspect
-    end
     @tags = @venue.venue_tags
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)

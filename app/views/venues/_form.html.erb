@@ -1,5 +1,5 @@
-<%= form_for @venue, :html => {:id => "venue_settings", :multipart => true, :role => 'form'} do |f| %>
-  <% venue=@venue %>
+<%= form_for @venue,:html => {:id => "venue_settings",:multipart => true, :role => 'form'} do |f| %>
+    <% venue=@venue %>
 
 
   <% if @venue.errors.any? %>
@@ -7,73 +7,51 @@
       <h2><%= pluralize(@venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
 
       <ul>
-        <% @venue.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
+      <% @venue.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
       </ul>
     </div>
   <% end %>
-  <div class="col-md-6">
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, {:class => 'form-control', :placeholder => 'Enter name'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :address %>
-      <%= f.text_field :address, {:class => 'form-control', :placeholder => 'Enter address'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :address2 %>
-      <%= f.text_field :address2, {:class => 'form-control', :placeholder => 'Enter address2'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :city %>
-      <%= f.text_field :city, {:class => 'form-control', :placeholder => 'Enter city'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :state %>
-      <%= f.text_field :state, {:class => 'form-control', :placeholder => 'Enter address'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :zip %>
-      <%= f.number_field :zip, {:class => 'form-control', :placeholder => 'Enter zip'} %>
-    </div>
+ <div class="col-md-6">
+   <div class="form-group">
+     <%= f.label :name %>
+     <%= f.text_field :name,{:class => 'form-control',:placeholder => 'Enter name'} %>
+   </div>
+  <div class="form-group">
+    <%= f.label :address %>
+    <%= f.text_field :address,{:class => 'form-control',:placeholder => 'Enter address'} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :address2 %>
+    <%= f.text_field :address2,{:class => 'form-control',:placeholder => 'Enter address2'} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :city %>
+    <%= f.text_field :city,{:class => 'form-control',:placeholder => 'Enter city'} %>
+  </div>
+   <div class="form-group">
+     <%= f.label :state %>
+     <%= f.text_field :state,{:class => 'form-control',:placeholder => 'Enter address'} %>
+   </div>
+   <div class="form-group">
+     <%= f.label :zip %>
+     <%= f.number_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
+   </div>
 
-    <div class="form-group">
-      <%= f.label :coordinate %>
-      <div class="form-inline">
-        <div class="form-group">
-          <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?), :size => '20', :class => 'form-control', :placeholder => 'Enter latitude' %>
-        </div>
-        <div class="form-group">
-          <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?), :size => '20', :class => 'form-control', :placeholder => 'Enter longitude' %>
-        </div>
-        <div class="form-group">
-          <button type="button" class="btn btn-default" id="find">Find</button>
-        </div>
+   <div class="form-group">
+    <%= f.label :coordinate %>
+    <div class="form-inline">
+      <div class="form-group">
+        <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter latitude' %>
+      </div>
+      <div class="form-group">
+        <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter longitude' %>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-default" id="find">Find</button>
       </div>
     </div>
-    <div class="form-group">
-      <%= f.label :phone %>
-      <%= f.text_field :phone, {:class => 'form-control', :placeholder => 'Enter phone'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :rating %>
-      <%= f.number_field :rating, {:class => 'form-control', :placeholder => 'Enter rating'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :tags %>
-      <div id="wrapper">
-        <div id="content">
-          <p>
-            <%= hidden_field_tag :tag_names, @tags, id: "mySingleField" %>
-          </p>
-          <ul id="singleFieldTags"></ul>
-        </div>
-      </div>
-      <%#= f.text_field :tags,{:class => 'form-control',:placeholder => 'Enter tags'} %>
-    </div>
-<<<<<<< Updated upstream
   </div>
    <div class="form-group">
      <%= f.label :phone %>
@@ -157,118 +135,13 @@
                 }
             });
         });
-=======
 
-    <div class="form-group">
-      <%= f.label :description %>
-      <%= f.text_area :description, {:class => 'form-control ckeditor', :rows => "3", :placeholder => 'Enter description'} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :cover_image %>
-      <%= f.file_field :image %>
-      <%##= image_tag @venue.image %>
-    </div>
-    <!--<div class="form-group">-->
-    <!--<%#= f.label :thumbnail %>-->
-    <!--<%#= f.file_field :thumbnail %>-->
-    <!--<%#= image_tag @venue.thumbnail %>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<%#= f.label :photos %>-->
-    <!--<input type="file" name="photo[image]" id="venue_image">-->
-    <!--<br>-->
-    <!--<br>-->
-    <!--</div>-->
-
-    <div class="form-group">
-      <%= f.label :reportFlag %>
-      <%= f.number_field :reportFlag, {:class => 'form-control', :placeholder => 'Enter reportFlag'} %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :websiteUrl %>
-      <%= f.text_field :websiteUrl, {:class => 'form-control', :placeholder => 'Enter websiteUrl'} %>
-    </div>
-
-    <!--<div id="wrapper">-->
-    <!--<div id="content">-->
-    <!--<p>-->
-    <!--<input name="tags" id="mySingleField" value="Apple, Orange" disabled="true"> &lt;!&ndash; only disabled for demonstration purposes &ndash;&gt;-->
-    <!--</p>-->
-    <!--<ul id="singleFieldTags"></ul>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<fieldset>-->
-    <!--<input type="file" name="fileselect" id="fileselect" multiple="multiple"></input>-->
-    <!--<input id="uploadbutton" type="button" value="Upload to Parse"/>-->
-    <!--</fieldset>-->
-
-    <div id="paintings" class=" row col-lg-12">
-        <% @photos.each do |p| %>
-          <%= render "photos/photo", :p => p %>
-        <% end %>
-
-    </div>
-
-    <div class="form-group" id="multi_image_upload">
-      <%= f.label :image, "Upload Images:" %>
-      <%= f.file_field :image, :multiple => true, :name => "painting" %>
-    </div>
-
-    <%= f.submit 'Submit', :class => 'btn btn-success' %>
-  </div>
-<% end %>
-
-<!--<script id="template-upload" type="text/x-tmpl">-->
-<!--<div class="upload">-->
-<!--{%=o.name%}-->
-<!--<div class="progress"><div class="bar" style="width: 0%"></div></div>-->
-<!--</div>-->
-<!--</script>-->
-
-
-
-
-<script type="text/javascript">
-
-  (function () {
-    jQuery(function () {
-      return $('#venue_settings').fileupload({
-        dataType: "script",
-        add: function (e, data) {
-          var file, types;
-          types = /(\.|\/)(gif|jpe?g|png)$/i;
-          file = data.files[0];
-          if (types.test(file.type) || types.test(file.name)) {
-//                        data.context = $(tmpl("template-upload", file));
-//                        $('#multi_image_upload').append(data.context);
-            data.submit();
-          } else {
-            return alert("" + file.name + " is not a gif, jpeg, or png image file");
-          }
-        }//,
-//                progress: function(e, data) {
-//                    var progress;
-//                    console.log("bar ");
-//                    if (data.context) {
-//                        console.log("bar1 ");
-//                        progress = parseInt(data.loaded / data.total * 100, 10);
-//                        return data.context.find('.bar').css('width', progress + '%');
-//                    }
-//                }
-      });
-    });
->>>>>>> Stashed changes
-
-  }).call(this);
+    }).call(this);
 
 </script>
 
 
 <script>
-<<<<<<< Updated upstream
 // Tags Js
     $(function(){
         var sampleTags = <%= raw @tag_names.to_json %>;//['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
@@ -281,53 +154,29 @@
         });
 
     });
-=======
-  $(function () {
-    var sampleTags = <%= raw @tag_names.to_json %>;//['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
-
-    //-------------------------------
-    // Minimal
-    //-------------------------------
-    $('#myTags').tagit();
-
-    //-------------------------------
-    // Single field
-    //-------------------------------
-    $('#singleFieldTags').tagit({
-      availableTags: sampleTags,
-      // This will make Tag-it submit a single form value, as a comma-delimited field.
-      singleField: true,
-      singleFieldNode: $('#mySingleField')
-    });
-
-  });
-
-
->>>>>>> Stashed changes
 </script>
 
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-  $("#find").click(function () {
+    $("#find").click(function(){
     //var address='B-56+Sector-64+Noida+up+india';//address which you want Longitude and Latitude
     var address = $('#venue_address').val() + ' ' + $('#venue_address2').val() + ' ' + $('#venue_city').val() + ' ' + $('#venue_state').val() + ' ' + $('#venue_zip').val();
     jQuery.ajax({
-      type: "GET",
-      dataType: "json",
-      url: "http://maps.googleapis.com/maps/api/geocode/json",
-      data: {'address': address, 'sensor': false},
-      success: function (data) {
-        if (data.results.length) {
-          jQuery('#latitude').val(data.results[0].geometry.location.lat);
-          jQuery('#longitude').val(data.results[0].geometry.location.lng);
-        } else {
-          jQuery('#latitude').val('');
-          jQuery('#longitude').val('');
+        type: "GET",
+        dataType: "json",
+        url: "http://maps.googleapis.com/maps/api/geocode/json",
+        data: {'address': address,'sensor':false},
+        success: function(data){
+            if(data.results.length){
+                jQuery('#latitude').val(data.results[0].geometry.location.lat);
+                jQuery('#longitude').val(data.results[0].geometry.location.lng);
+            }else{
+                jQuery('#latitude').val('');
+                jQuery('#longitude').val('');
+            }
         }
-      }
     });
-<<<<<<< Updated upstream
     });
 
 </script>
@@ -343,20 +192,5 @@
         );
         return false;
     });
-=======
-  });
-
-  $("a.delete_photo").live('click', function () {
-    var id = $(this).attr('id');
-    var div = $(this).parent('div').parent('div')
-    $.get('delete_venue_photo', {photo_id: id},
-      function () {
-        div.remove();
-      }
-    );
-    return false;
-  });
-
->>>>>>> Stashed changes
 </script>
 
