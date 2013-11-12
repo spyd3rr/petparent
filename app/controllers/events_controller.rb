@@ -42,10 +42,13 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    #@venue_names = Venue.all_venues
+    unless @event
+      @event = Event.create(:name => 'event name')
+    end
     @tags = @event.event_tags
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)
+    @photos = get_photos(@event.id)
   end
 
   # POST /events
@@ -126,13 +129,21 @@ class EventsController < ApplicationController
     params[:event][:image] = Photo.image_upload(params[:event][:image]) if params[:event][:image]
     params[:event][:thumbnail] = params[:event][:image]
 
-    respond_to do |format|
-      if @event.update_attributes(params[:event])
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+    if params[:painting]
+      image = Photo.image_upload(params[:painting])
+      @painting = Photo.create_photos(image)
+      photo_id = @painting.id
+      Photo.set_photos("Event", photo_id, @event.id)
+    else
+
+      respond_to do |format|
+        if @event.update_attributes(params[:event])
+          format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @event.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -147,6 +158,16 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url }
       format.json { head :no_content }
     end
+  end
+
+  def get_photos(id)
+    photos=Photo.get_photos("Event", id)
+  end
+
+  def delete_event_photo
+    photo = Photo.find(params[:photo_id])
+    photo.destroy
+    render :json => {:status => 'ok'}
   end
 
   private
