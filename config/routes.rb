@@ -23,11 +23,6 @@ Petparent::Application.routes.draw do
   resources :pets
   resources :lost_pets
   resources :events
-
-  resources :photos do
-    collection do
-      get 'create_parse_image'
-    end
-  end
+  resources :photos
 
 end

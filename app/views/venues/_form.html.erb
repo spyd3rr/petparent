@@ -80,21 +80,15 @@
    </div>
   <div class="form-group">
     <%= f.label :cover_image %>
+    <%= image_tag venue.image , :size => "100x100"%>
+    <%#= render "photos/photo" ,:p=>venue %>
     <%= f.file_field :image %>
-    <%##= image_tag @venue.image %>
   </div>
    <!--<div class="form-group">-->
      <!--<%#= f.label :thumbnail %>-->
      <!--<%#= f.file_field :thumbnail %>-->
      <!--<%#= image_tag @venue.thumbnail %>-->
    <!--</div>-->
-
-  <!--<div class="form-group">-->
-    <!--<%#= f.label :photos %>-->
-    <!--<input type="file" name="photo[image]" id="venue_image">-->
-    <!--<br>-->
-    <!--<br>-->
-  <!--</div>-->
 
   <div class="form-group">
     <%= f.label :reportFlag %>
@@ -106,19 +100,6 @@
      <%= f.text_field :websiteUrl,{:class => 'form-control',:placeholder => 'Enter websiteUrl'} %>
    </div>
 
-   <!--<div id="wrapper">-->
-     <!--<div id="content">-->
-       <!--<p>-->
-         <!--<input name="tags" id="mySingleField" value="Apple, Orange" disabled="true"> &lt;!&ndash; only disabled for demonstration purposes &ndash;&gt;-->
-       <!--</p>-->
-       <!--<ul id="singleFieldTags"></ul>-->
-     <!--</div>-->
-   <!--</div>-->
-
-   <!--<fieldset>-->
-     <!--<input type="file" name="fileselect" id="fileselect" multiple="multiple"></input>-->
-     <!--<input id="uploadbutton" type="button" value="Upload to Parse"/>-->
-   <!--</fieldset>-->
 
    <div id="paintings">
      <% @photos.each do |p| %>
@@ -135,43 +116,23 @@
  </div>
 <% end %>
 
-<!--<script id="template-upload" type="text/x-tmpl">-->
-  <!--<div class="upload">-->
-    <!--{%=o.name%}-->
-    <!--<div class="progress"><div class="bar" style="width: 0%"></div></div>-->
-  <!--</div>-->
-<!--</script>-->
-
-
-
 
 <script type="text/javascript">
 
     (function() {
         jQuery(function() {
-            return $('#venue_settings').fileupload({
+            return $('#multi_image_upload').fileupload({
                 dataType: "script",
                 add: function(e, data) {
                     var file, types;
                     types = /(\.|\/)(gif|jpe?g|png)$/i;
                     file = data.files[0];
                     if (types.test(file.type) || types.test(file.name)) {
-//                        data.context = $(tmpl("template-upload", file));
-//                        $('#multi_image_upload').append(data.context);
                         data.submit();
                     } else {
                         return alert("" + file.name + " is not a gif, jpeg, or png image file");
                     }
-                }//,
-//                progress: function(e, data) {
-//                    var progress;
-//                    console.log("bar ");
-//                    if (data.context) {
-//                        console.log("bar1 ");
-//                        progress = parseInt(data.loaded / data.total * 100, 10);
-//                        return data.context.find('.bar').css('width', progress + '%');
-//                    }
-//                }
+                }
             });
         });
 
@@ -181,17 +142,10 @@
 
 
 <script>
+// Tags Js
     $(function(){
         var sampleTags = <%= raw @tag_names.to_json %>;//['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
-
-        //-------------------------------
-        // Minimal
-        //-------------------------------
         $('#myTags').tagit();
-
-        //-------------------------------
-        // Single field
-        //-------------------------------
         $('#singleFieldTags').tagit({
             availableTags: sampleTags,
             // This will make Tag-it submit a single form value, as a comma-delimited field.
@@ -200,12 +154,8 @@
         });
 
     });
-
-
-
-
-
 </script>
+
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
@@ -229,6 +179,9 @@
     });
     });
 
+</script>
+
+<script type="text/javascript">
     $("a.delete_photo").live('click', function () {
         var id = $(this).attr('id');
         var div=$(this).parent('div').parent('div')
@@ -239,6 +192,5 @@
         );
         return false;
     });
-
 </script>
 

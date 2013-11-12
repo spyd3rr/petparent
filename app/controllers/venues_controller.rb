@@ -112,17 +112,17 @@ class VenuesController < ApplicationController
       Photo.set_photos("Venue",photo_id,@venue.id)
     else
 
-    respond_to do |format|
-      if @venue.update_attributes(params[:venue])
-        format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @venue.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @venue.update_attributes(params[:venue])
+          format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @venue.errors, status: :unprocessable_entity }
+        end
       end
     end
 
-    end
   end
 
   # DELETE /venues/1
@@ -155,11 +155,6 @@ class VenuesController < ApplicationController
     end
 
     render json: @venues
-  end
-
-  def multi_upload
-    Photo.create
-    Photo.set_photos("Venue",photo_id,venue_id)
   end
 
   def get_photos(id)

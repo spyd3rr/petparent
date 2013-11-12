@@ -80,11 +80,5 @@ class PhotosController < ApplicationController
     end
   end
 
-  def create_parse_image
-    raise params[:url_name].to_yaml
-    @painting = Photo.create(:image => params[:url_name])
-
-  end
-
 
 end
