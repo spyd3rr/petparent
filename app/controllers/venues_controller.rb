@@ -43,6 +43,9 @@ class VenuesController < ApplicationController
   # GET /venues/1/edit
   def edit
     @venue = Venue.find(params[:id])
+    unless @venue
+      @venue = Venue.create(:name => 'venue name')
+    end
     @tags = @venue.venue_tags
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)
@@ -111,7 +114,7 @@ class VenuesController < ApplicationController
       image = Photo.image_upload(params[:painting])
       @painting = Photo.create_photos(image)
       photo_id = @painting.id
-      Photo.set_photos("Venue",photo_id,@venue.id)
+      Photo.set_photos("Venue", photo_id, @venue.id)
     else
 
       respond_to do |format|
@@ -144,12 +147,12 @@ class VenuesController < ApplicationController
     pp "Recieved Input:"
     pp params[:contains]
     if params[:contains]
-      searchterm = params[:contains].gsub(/[^0-9a-z ]/i, '')#.upcase
+      searchterm = params[:contains].gsub(/[^0-9a-z ]/i, '') #.upcase
       pp "Searching for #{searchterm}...."
-      #@venues = Venue.where("regexp_replace(name, '[^0-9a-zA-Z ]', '') ilike '%#{searchterm}%'").collect {|v| { :label => "#{v.name} (#{v.address})", :value => "#{v.name} (#{v.address})", :id => v.id } }
+                                                             #@venues = Venue.where("regexp_replace(name, '[^0-9a-zA-Z ]', '') ilike '%#{searchterm}%'").collect {|v| { :label => "#{v.name} (#{v.address})", :value => "#{v.name} (#{v.address})", :id => v.id } }
       @venues = Parse::Query.new("Venue").regex("nameStripped", searchterm).get
-      #raise @venues.to_yaml
-      @venues = @venues.collect {|v| { :label => "#{v["name"]} (#{v["address"]})", :value => "#{v["name"]} (#{v["address"]})", :id => v.id } }
+                                                             #raise @venues.to_yaml
+      @venues = @venues.collect { |v| {:label => "#{v["name"]} (#{v["address"]})", :value => "#{v["name"]} (#{v["address"]})", :id => v.id} }
       pp @venues
     else
       pp "No input"
@@ -160,7 +163,7 @@ class VenuesController < ApplicationController
   end
 
   def get_photos(id)
-    photos=Photo.get_photos("Venue",id)
+    photos=Photo.get_photos("Venue", id)
   end
 
   def delete_venue_photo
@@ -178,7 +181,6 @@ class VenuesController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
-
 
 
 end
