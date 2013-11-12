@@ -1,4 +1,4 @@
-<div class="painting">
+<div class="col-lg-2">
   <% if p.image %>
       <%= image_tag p.image.url , :size => "50x50"%>
   <% end %>
@@ -6,5 +6,6 @@
     <%= link_to "remove", "#", :id => "#{p.id}", :class => "delete_photo" %>
     <!--<a rel="nofollow" data-method="delete" data-confirm="Are you sure?" href="/paintings/29">remove</a>-->
   </div>
-</div>
+ </div>
+
 

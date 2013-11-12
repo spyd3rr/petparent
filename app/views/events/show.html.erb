@@ -67,13 +67,13 @@
 
     <p>
       <b>Thumbnail:</b>
-      <%= image_tag @event.thumbnail %>
+      <%= image_tag @event.thumbnail , :size => "50x50"%>
     </p>
 
-<p>
+<!--<p>
   <b>User:</b>
-  <%= @event.user %>
-</p>
+  <%#= @event.user %>
+</p>-->
 
 <p>
   <b>Venue:</b>
@@ -99,7 +99,7 @@
 
   <div class="col-md-6">
     <p>
-      <%= image_tag @event.image %>
+      <%= image_tag @event.image, :size => "50x50" %>
     </p>
   </div>
 
