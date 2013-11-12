@@ -53,10 +53,7 @@ gem 'therubyracer'
 gem 'will_paginate', '~> 3.0'
 gem 'quiet_assets'
 
-gem "paperclip", "~> 3.0"
 
 
-
-#gem "geocoder"
 
 

@@ -7,7 +7,7 @@ class Venue < ParseResource::Base
   validates_presence_of :name
   before_save :copy_venue
 
-  include Paperclip::Glue
+  #include Paperclip::Glue
 
 
 
@@ -70,5 +70,7 @@ class Venue < ParseResource::Base
       all
     end
   end
+
+
 
  end

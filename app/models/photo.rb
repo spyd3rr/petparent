@@ -37,4 +37,6 @@ class Photo < ParseResource::Base
   end
 
 
+
+
 end
