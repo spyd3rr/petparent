@@ -104,9 +104,7 @@ class VenuesController < ApplicationController
       #venue.save
     end
 
-    #params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
-    #source = Photo.image_resize(params[:venue][:image]) if params[:venue][:image]
-    #raise source.to_yaml
+    params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
     params[:venue][:thumbnail] = Photo.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
 
 
