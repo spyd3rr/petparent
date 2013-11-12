@@ -1,10 +1,12 @@
-
+<div class="photo">
   <% if p["thumbnail"] %>
     <%= image_tag p["thumbnail"].url , :size => "50x50"%>
   <% end %>
   <div class="actions">
     <%#= link_to "edit", edit_painting_path(painting) %>
-    <%#= link_to "remove", painting, :confirm => 'Are you sure?', :method => :delete %>
+    <%#= link_to "remove", p, :confirm => 'Are you sure?', :controller=> 'photos', :method => :delete %>
+    <%= link_to "remove", "#",:id => "#{p.id}", :class => "delete_photo" %>
   </div>
+</div>
 
 

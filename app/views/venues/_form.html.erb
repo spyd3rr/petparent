@@ -1,5 +1,7 @@
 <%= form_for @venue,:html => {:id => "venue_settings",:multipart => true, :role => 'form'} do |f| %>
     <% venue=@venue %>
+
+
   <% if @venue.errors.any? %>
     <div id="error_explanation" class="alert alert-warning">
       <h2><%= pluralize(@venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
@@ -120,70 +122,32 @@
 
    <div id="paintings">
      <% @photos.each do |p| %>
-        <%= render "photos/photo" ,:p=>p %>
+         <%= render "photos/photo" ,:p=>p %>
      <% end %>
    </div>
 
-   <%= f.label :image, "Upload Images:" %>
-   <%= f.file_field :image, :multiple=> true, :name=> "painting" %>
-   <br>
-   <br>
+   <div class="form-group" id="multi_image_upload">
+       <%= f.label :image, "Upload Images:" %>
+        <%= f.file_field :image, :multiple=> true, :name=> "painting" %>
+   </div>
 
    <%= f.submit 'Submit', :class => 'btn btn-success' %>
  </div>
 <% end %>
 
-<script id="template-upload" type="text/x-tmpl">
-  <div class="upload">
-    {%=o.name%}
-    <div class="progress"><div class="bar" style="width: 0%"></div></div>
-  </div>
-</script>
+<!--<script id="template-upload" type="text/x-tmpl">-->
+  <!--<div class="upload">-->
+    <!--{%=o.name%}-->
+    <!--<div class="progress"><div class="bar" style="width: 0%"></div></div>-->
+  <!--</div>-->
+<!--</script>-->
 
 
 
 
 <script type="text/javascript">
-    $(function() {
-        var file;
-
-        // Set an event listener on the Choose File field.
-        $('#fileselect').bind("change", function(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            // Our file var now holds the selected file
-            file = files[0];
-        });
-
-        // This function is called when the user clicks on Upload to Parse. It will create the REST API request to upload this image to Parse.
-        $('#uploadbutton').click(function() {
-            var serverUrl = 'https://api.parse.com/1/files/' + file.name;
-
-            $.ajax({
-                type: "POST",
-                beforeSend: function(request) {
-                    request.setRequestHeader("X-Parse-Application-Id", '4LJ8r1x6bT34iJcAH360QBrvrjtomkOEnw6V2ODD');
-                    request.setRequestHeader("X-Parse-REST-API-Key", 'Pl5Sphkn6NFqqBnV1VEZWbB6SdcEBUUlNQNqh7db');
-                    request.setRequestHeader("Content-Type", file.type);
-                },
-                url: serverUrl,
-                data: file,
-                processData: false,
-                contentType: false,
-                success: function(data) {
-                    alert("File available at: " + data.url);
-                },
-                error: function(data) {
-                    var obj = jQuery.parseJSON(data);
-                    alert(obj.error);
-                }
-            });
-        });
-
-
-    });
 
     (function() {
-
         jQuery(function() {
             return $('#venue_settings').fileupload({
                 dataType: "script",
@@ -191,40 +155,27 @@
                     var file, types;
                     types = /(\.|\/)(gif|jpe?g|png)$/i;
                     file = data.files[0];
-                    //console.log(file)
                     if (types.test(file.type) || types.test(file.name)) {
-                        /////////////
-                        //parse_upload(file);
-                        //////////////
-                        data.context = $(tmpl("template-upload", file));
-                        $('#venue_settings').append(data.context);
+//                        data.context = $(tmpl("template-upload", file));
+//                        $('#multi_image_upload').append(data.context);
                         data.submit();
                     } else {
                         return alert("" + file.name + " is not a gif, jpeg, or png image file");
                     }
-                },
-                progress: function(e, data) {
-                    var progress;
-                    if (data.context) {
-                        progress = parseInt(data.loaded / data.total * 100, 10);
-                        return data.context.find('.bar').css('width', progress + '%');
-                    }
-                }
+                }//,
+//                progress: function(e, data) {
+//                    var progress;
+//                    console.log("bar ");
+//                    if (data.context) {
+//                        console.log("bar1 ");
+//                        progress = parseInt(data.loaded / data.total * 100, 10);
+//                        return data.context.find('.bar').css('width', progress + '%');
+//                    }
+//                }
             });
         });
 
     }).call(this);
-
-    function parse_upload(file)
-    {
-
-                $.get("<%= create_parse_image_photos_path %>", {img_path:data.url,img_name:data.url,img_type:data.url},
-                        function(data){
-
-                        }
-                );
-
-    }
 
 </script>
 
@@ -276,6 +227,17 @@
             }
         }
     });
+    });
+
+    $("a.delete_photo").live('click', function () {
+        var id = $(this).attr('id');
+        var div=$(this).parent('div').parent('div')
+        $.get('delete_venue_photo',{photo_id:id},
+                function(){
+                    div.remove();
+                }
+        );
+        return false;
     });
 
 </script>

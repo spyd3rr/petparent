@@ -14,6 +14,9 @@ Petparent::Application.routes.draw do
       get 'find'
       post 'upload_images'
     end
+    member do
+      get 'delete_venue_photo'
+    end
   end
   resources :tips
   resources :tags

@@ -166,8 +166,10 @@ class VenuesController < ApplicationController
     photos=Photo.get_photos("Venue",id)
   end
 
-  def upload_images
-
+  def delete_venue_photo
+    photo = Photo.find(params[:photo_id])
+    photo.destroy
+    render :json => {:status => 'ok'}
   end
 
   private

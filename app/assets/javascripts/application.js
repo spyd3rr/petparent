@@ -31,4 +31,16 @@ $(function() {
         $.get($("#products_search").attr("action"), $("#products_search").serialize(), null, "script");
         return false;
     });
+
+    $( document ).ajaxStart(function () {
+        $( "#ajax_div" ).show();
+    });
+    $( document ).ajaxStop(function() {
+        $( "#ajax_div" ).hide();
+    });
+
+    $( document ).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
+        alert(jqXHR['status'] + ' ' + thrownError);
+    });
+
 });
