@@ -105,7 +105,7 @@ class VenuesController < ApplicationController
     end
 
     params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
-    params[:venue][:thumbnail] = Photo.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
+    params[:venue][:thumbnail] = params[:venue][:image]
 
 
     if params[:painting]

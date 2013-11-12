@@ -69,13 +69,13 @@
 
     <p>
       <b>Thumbnail:</b>
-      <%= image_tag @venue.thumbnail %>
+      <%= image_tag @venue.thumbnail, :size => "50x50"  %>
     </p>
 
-    <p>
-      <b>Tips:</b>
-      <%= @venue.tips %>
-    </p>
+    <!--<p>-->
+      <!--<b>Tips:</b>-->
+      <!--<%#= @venue.tips %>-->
+    <!--</p>-->
 
     <p>
       <b>Zip:</b>
@@ -92,7 +92,7 @@
 
   <div class="col-md-6">
     <p>
-      <%= image_tag @venue.image %>
+      <%= image_tag @venue.image, :size => "50x50" %>
     </p>
   </div>
 
