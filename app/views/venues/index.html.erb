@@ -1,4 +1,18 @@
 
+
+<div class="row">
+  <div class="col-lg-6">
+<%= form_tag venues_path, :method => 'get', :id => "venues_search",:class=>"form-inline" do %>
+    <div class="form-group">
+      <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Name" %>
+    </div>
+      <%= submit_tag "Search", :name => nil, :class=>'btn btn-default' %>
+<% end %>
+  </div>
+</div>
+
+
+
 <div class="row">
   <div class="col-lg-6">
     <h1>Listing venues</h1>
@@ -66,7 +80,11 @@
 <% end %>
 </table>
 
-<%= will_paginate @venues %>
+<%#= will_paginate @venues %>
+
+<div id="products"><%= render 'products' %></div>
+
+
 
 
 

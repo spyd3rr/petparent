@@ -8,7 +8,12 @@ class VenuesController < ApplicationController
   def index
     #@venues = Venue.all
 
-    @venues = Venue.order(sort_column + " " + sort_direction).page(params[:page]).per(30)
+    if params[:search] && params[:search]!=''
+      @venues = Venue.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
+    else
+      @venues = Venue.order(sort_column + " " + sort_direction).page(params[:page]).per(30)
+    end
+    #raise @venues.all.to_yaml
 
     respond_to do |format|
       format.html # index.html.erb

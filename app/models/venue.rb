@@ -65,9 +65,11 @@ class Venue < ParseResource::Base
 
   def self.search(search)
     if search
-      where('name LIKE ?', "%#{search}%")
-    else
-      all
+      #where('name LIKE ?', "%#{search}%")
+      #where(:name => "{'$regex':'#{search}'}")
+      where(:nameStripped => {'$regex'=>"#{search}"})
+    #else
+      #scoped
     end
   end
 
