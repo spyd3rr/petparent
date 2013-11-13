@@ -67,7 +67,9 @@ class Venue < ParseResource::Base
     if search
       #where('name LIKE ?', "%#{search}%")
       #where(:name => "{'$regex':'#{search}'}")
-      where(:nameStripped => {'$regex'=>"#{search}"})
+      #where={"$or":[{"wins":{"$gt":150}},{"wins":{"$lt":5}}]}
+      where('$or'=>[{:nameStripped => {'$regex'=>"#{search}"}},{:city => {'$regex'=>"#{search}"}}])
+      #where(:nameStripped => {'$regex'=>"#{search}"})
     #else
       #scoped
     end
