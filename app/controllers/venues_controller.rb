@@ -104,6 +104,7 @@ class VenuesController < ApplicationController
       #venue.save
     end
 
+    params[:venue][:nameStripped] = params[:venue][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:venue][:name]
     params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
     params[:venue][:thumbnail] = params[:venue][:image]
 
@@ -147,9 +148,7 @@ class VenuesController < ApplicationController
     if params[:contains]
       searchterm = params[:contains].gsub(/[^0-9a-z ]/i, '') #.upcase
       pp "Searching for #{searchterm}...."
-                                                             #@venues = Venue.where("regexp_replace(name, '[^0-9a-zA-Z ]', '') ilike '%#{searchterm}%'").collect {|v| { :label => "#{v.name} (#{v.address})", :value => "#{v.name} (#{v.address})", :id => v.id } }
       @venues = Parse::Query.new("Venue").regex("nameStripped", searchterm).get
-                                                             #raise @venues.to_yaml
       @venues = @venues.collect { |v| {:label => "#{v["name"]} (#{v["address"]})", :value => "#{v["name"]} (#{v["address"]})", :id => v.id} }
       pp @venues
     else
