@@ -32,8 +32,8 @@
     <!--<th>Price</th>-->
     <!--<th>Reportflag</th>-->
     <!--<th><%#= sortable "state" %></th>-->
-    <th>StartDate</th>
-    <th>EndDate</th>
+    <th><%= sortable "startDate" %></th>
+    <th><%= sortable "endDate" %></th>
     <!--<th><%#= sortable "tags" %></th>-->
     <!--<th>Thumbnail</th>-->
     <!--<th>User</th>-->
@@ -60,10 +60,13 @@
     <!--<td><%#= event.state %></td>-->
     <!--<td><%#= event.startDate unless event.startDate.nil? %></td>-->
     <td>
-      <% e=Parse::Query.new("Event").eq("objectId", event.id).get.first %>
-      <%= e["startDate"].to_time.strftime("%a %B %d at %I:%M%p") if e["startDate"] %>
+      <%# e=Parse::Query.new("Event").eq("objectId", event.id).get.first %>
+      <%#= e["startDate"].to_time.strftime("%a %B %d at %I:%M%p") if e["startDate"] %>
+      <%= event.startDate.strftime("%a %B %d at %I:%M%p") unless event.startDate.nil? %>
     </td>
-    <td><%= e["endDate"].to_time.localtime.strftime("%a %B %d at %I:%M%p") if e["endDate"] %></td>
+    <td><%#= e["endDate"].to_time.localtime.strftime("%a %B %d at %I:%M%p") if e["endDate"] %>
+      <%= event.endDate.strftime("%a %B %d at %I:%M%p") unless event.endDate.nil? %>
+    </td>
 
     <!--<td><%#= event.event_tags %></td>-->
     <!--<td><%#= event.thumbnail %></td>-->
