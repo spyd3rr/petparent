@@ -14,7 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/public
+/public/*
 
 /.Gemfile.lock
 /config/parse_resource.yml
