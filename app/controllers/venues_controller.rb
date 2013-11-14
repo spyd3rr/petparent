@@ -49,7 +49,7 @@ class VenuesController < ApplicationController
   def edit
     @venue = Venue.find(params[:id])
     unless @venue
-      @venue = Venue.create(:name => 'venue name')
+      @venue = Venue.create#(:name => 'venue name')
     end
     @tags = @venue.venue_tags
     _tags = Tag.all

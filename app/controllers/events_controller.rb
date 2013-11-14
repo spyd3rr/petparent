@@ -4,8 +4,11 @@ class EventsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @events = Event.order(sort_column + " " + sort_direction).page(params[:page]).per(30)
-    #@venue_names = Venue.all_venues
+    if params[:search] && params[:search]!=''
+      @events = Event.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
+    else
+      @events = Event.order(sort_column + " " + sort_direction).page(params[:page]).per(30)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,7 +46,7 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     unless @event
-      @event = Event.create(:name => 'event name')
+      @event = Event.create#(:name => 'event name')
     end
     @tags = @event.event_tags
     _tags = Tag.all

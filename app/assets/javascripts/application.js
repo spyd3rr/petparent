@@ -12,6 +12,7 @@
 
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require ckeditor/init
 
 
 //= require_self
@@ -23,14 +24,14 @@ $(document).ready(function(){
 
 
 $(function() {
-    $("#products th a, #products .pagination a").live("click", function() {
-        $.getScript(this.href);
-        return false;
-    });
-    $("#products_search input").keyup(function() {
-        $.get($("#products_search").attr("action"), $("#products_search").serialize(), null, "script");
-        return false;
-    });
+//    $("#products th a, #products .pagination a").live("click", function() {
+//        $.getScript(this.href);
+//        return false;
+//    });
+//    $("#products_search input").keyup(function() {
+//        $.get($("#products_search").attr("action"), $("#products_search").serialize(), null, "script");
+//        return false;
+//    });
 
     $( document ).ajaxStart(function () {
         $( "#ajax_div" ).show();
