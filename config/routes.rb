@@ -22,7 +22,11 @@ Petparent::Application.routes.draw do
   resources :tags
   resources :pets
   resources :lost_pets
-  resources :events
+  resources :events do
+    member do
+      get 'delete_event_photo'
+    end
+  end
   resources :photos
 
 end
