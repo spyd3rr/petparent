@@ -28,26 +28,6 @@ namespace :test do
 				no_results.push(l)
 			else
 				new_venue = nil
-				response["businesses"].each do |business|
-					pp business["name"]
-					new_venue = Venue.create!(
-							:name => business["name"],
-							:address => business["address1"],
-							:address2 => business["address2"],
-							:city => business["city"],
-							:state => business["state_code"],
-							:zip => business["zip"],
-							:phone => business["phone"],
-							: => business[""],
-							: => business[""],
-							: => business[""],
-							: => business[""],
-							:state_code => lines[index][7],
-							:zip => lines[index][8],
-							:raw_id => "sched",
-							:from => "sched"
-						)
-				end
 			end
 		end
 	end
