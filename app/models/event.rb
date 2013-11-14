@@ -1,8 +1,8 @@
 class Event < ParseResource::Base
 
-  fields :address, :address2, :city, :coordinate, :description, :endDate, :image, :name, :price, :reportFlag, :startDate, :state, :tags, :thumbnail, :user, :venue, :zip, :websiteUrl, :ticketingUrl
+  fields :address, :address2, :city, :coordinate, :description, :endDate, :image, :name, :price, :reportFlag, :startDate, :state, :tags, :thumbnail, :user, :venue, :zip, :websiteUrl, :ticketingUrl, :nameStripped
 
-  validates_presence_of :name
+  #validates_presence_of :name
 
   def event_tags
     hash_tags= self.tags
@@ -15,6 +15,12 @@ class Event < ParseResource::Base
       end
     end
     tag_names.join(",")
+  end
+
+  def self.search(search)
+    if search
+      where('$or'=>[{:nameStripped => {'$regex'=>"#{search}"}},{:city => {'$regex'=>"#{search}"}}])
+    end
   end
 
 end

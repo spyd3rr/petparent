@@ -1,5 +1,16 @@
 <div class="row">
   <div class="col-lg-6">
+    <%= form_tag events_path, :method => 'get', :id => "events_search",:class=>"form-inline" do %>
+        <div class="form-group">
+          <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Name or City" %>
+        </div>
+        <%= submit_tag "Search", :name => nil, :class=>'btn btn-default' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
     <h1>Listing events</h1>
   </div>
   <div class="col-lg-5">
@@ -11,16 +22,16 @@
   <tr>
     <th><%= sortable "name" %></th>
     <th><%= sortable "venue_name" %></th>
-    <th><%= sortable "address" %></th>
+    <!--<th><%#= sortable "address" %></th>-->
     <!--<th>Address2</th>-->
-    <!--<th>City</th>-->
+    <th><%= sortable "city" %></th>
    <!-- <th>Coordinate</th>-->
     <!--<th>Description</th>-->
     <!--<th>Enddate</th>-->
     <!--<th>Image</th>-->
     <!--<th>Price</th>-->
     <!--<th>Reportflag</th>-->
-    <th><%= sortable "state" %></th>
+    <!--<th><%#= sortable "state" %></th>-->
     <th>StartDate</th>
     <th>EndDate</th>
     <!--<th><%#= sortable "tags" %></th>-->
@@ -35,9 +46,9 @@
   <tr>
     <td><%= link_to event.name, edit_event_path(event) unless event.name.nil? %></td>
     <td><%= event.venue.name unless event.venue.nil? %></td>
-    <td><%= event.address %></td>
+    <!--<td><%#= event.address %></td>-->
     <!--<td><%#= event.address2 %></td>-->
-    <!--<td><%#= event.city %></td>-->
+    <td><%= event.city %></td>
     <!--<td><%# unless event.coordinate.nil? %><%#= event.coordinate.latitude %><br><%#= event.coordinate.longitude %><%# end %></td>-->
     <!--<td><%#= event.description %></td>-->
     <!--<td><%#= event.endDate %></td>-->
@@ -46,13 +57,13 @@
     <!--<td><%#= event.price %></td>-->
     <!--<td><%#= event.reportFlag %></td>-->
 
-    <td><%= event.state %></td>
+    <!--<td><%#= event.state %></td>-->
     <!--<td><%#= event.startDate unless event.startDate.nil? %></td>-->
     <td>
       <% e=Parse::Query.new("Event").eq("objectId", event.id).get.first %>
-      <%= e["startDate"].to_time.localtime if e["startDate"] %>
+      <%= e["startDate"].to_time.strftime("%a %B %d at %I:%M%p") if e["startDate"] %>
     </td>
-    <td><%= e["endDate"].to_time.localtime if e["endDate"] %></td>
+    <td><%= e["endDate"].to_time.localtime.strftime("%a %B %d at %I:%M%p") if e["endDate"] %></td>
 
     <!--<td><%#= event.event_tags %></td>-->
     <!--<td><%#= event.thumbnail %></td>-->
