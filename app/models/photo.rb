@@ -24,7 +24,7 @@ class Photo < ParseResource::Base
     #raise params[:venue][:image].read.to_yaml
     photo = Parse::File.new({
                                 :body => pic.read,#IO.read("test/parsers.jpg"),
-                                :local_filename => pic.original_filename,#"parsers.jpg",
+                                :local_filename => pic.original_filename.parameterize,#"parsers.jpg",
                                 :content_type => pic.content_type#"image/jpeg"
                             })
     photo.save

@@ -31,11 +31,11 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     @event = Event.new
-    @venue_names = Venue.all_venues
+    #@venue_names = Venue.all_venues
 
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)
-
+    @photos = []
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @event }
@@ -57,6 +57,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    @photos = []
     @event = Event.new(params[:event])
     @event.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:event][:price] = params[:event][:price].to_f
@@ -84,12 +85,19 @@ class EventsController < ApplicationController
       #venue.save
     end
 
+    params[:event][:nameStripped] = params[:event][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:event][:name]
     params[:event][:image] = Photo.image_upload(params[:event][:image]) if params[:event][:image]
-    params[:event][:thumbnail] = Photo.image_upload(params[:event][:thumbnail]) if params[:event][:thumbnail]
+    params[:event][:thumbnail] = params[:event][:image]
 
 
     respond_to do |format|
       if @event.save
+        if params[:photo] and params[:photo][:pictures_attributes]
+          params[:photo][:pictures_attributes].each do |pic|
+            photo_id = pic[1][:id]
+            Photo.set_photos("Event", photo_id, @event.id)
+          end
+        end
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
@@ -103,6 +111,7 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
+    @photos = []
     @event.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:event][:price] = params[:event][:price].to_f
     params[:event][:reportFlag] = params[:event][:reportFlag].to_f
@@ -129,24 +138,32 @@ class EventsController < ApplicationController
       params[:event][:tags] = tags_array
       #venue.save
     end
+
+    params[:event][:nameStripped] = params[:event][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:event][:name]
     params[:event][:image] = Photo.image_upload(params[:event][:image]) if params[:event][:image]
     params[:event][:thumbnail] = params[:event][:image]
 
-    if params[:painting]
-      image = Photo.image_upload(params[:painting])
-      @painting = Photo.create_photos(image)
-      photo_id = @painting.id
-      Photo.set_photos("Event", photo_id, @event.id)
-    else
+    #if params[:painting]
+    #  image = Photo.image_upload(params[:painting])
+    #  @painting = Photo.create_photos(image)
+    #  photo_id = @painting.id
+    #  Photo.set_photos("Event", photo_id, @event.id)
+    #else
 
-      respond_to do |format|
-        if @event.update_attributes(params[:event])
-          format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @event.errors, status: :unprocessable_entity }
-        end
+    if params[:photo] and params[:photo][:pictures_attributes]
+      params[:photo][:pictures_attributes].each do |pic|
+        photo_id = pic[1][:id]
+        Photo.set_photos("Event", photo_id, @event.id)
+      end
+    end
+
+    respond_to do |format|
+      if @event.update_attributes(params[:event])
+        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -171,6 +188,11 @@ class EventsController < ApplicationController
     photo = Photo.find(params[:photo_id])
     photo.destroy
     render :json => {:status => 'ok'}
+  end
+
+  def upload_images
+    image = Photo.image_upload(params[:painting])
+    @painting = Photo.create_photos(image)
   end
 
   private

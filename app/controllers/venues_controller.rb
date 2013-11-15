@@ -60,9 +60,8 @@ class VenuesController < ApplicationController
   # POST /venues
   # POST /venues.json
   def create
-    @photos = []
-    #raise params[:venue].to_yaml
     @venue = Venue.new(params[:venue])
+    @photos = []
     @venue.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:venue][:rating] = params[:venue][:rating].to_f
     params[:venue][:reportFlag] = params[:venue][:reportFlag].to_f
@@ -75,12 +74,19 @@ class VenuesController < ApplicationController
       #venue.save
     end
 
-
+    params[:venue][:nameStripped] = params[:venue][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:venue][:name]
     params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
-    params[:venue][:thumbnail] = Photo.image_upload(params[:venue][:thumbnail]) if params[:venue][:thumbnail]
+    params[:venue][:thumbnail] = params[:venue][:image]
 
     respond_to do |format|
       if @venue.save
+        if params[:photo] and params[:photo][:pictures_attributes]
+          params[:photo][:pictures_attributes].each do |pic|
+            photo_id = pic[1][:id]
+            #raise photo_id.to_yaml
+            Photo.set_photos("Venue", photo_id, @venue.id)
+          end
+        end
         format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
         format.json { render json: @venue, status: :created, location: @venue }
       else
@@ -93,9 +99,8 @@ class VenuesController < ApplicationController
   # PUT /venues/1
   # PUT /venues/1.json
   def update
-    #raise params[:image].to_yaml
-    #raise params[:venue].to_yaml
     @venue = Venue.find(params[:id])
+    @photos = []
     @venue.coordinate = ParseGeoPoint.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     params[:venue][:rating] = params[:venue][:rating].to_f
     params[:venue][:reportFlag] = params[:venue][:reportFlag].to_f
@@ -114,21 +119,20 @@ class VenuesController < ApplicationController
     params[:venue][:thumbnail] = params[:venue][:image]
 
 
-    if params[:painting]
-      image = Photo.image_upload(params[:painting])
-      @painting = Photo.create_photos(image)
-      photo_id = @painting.id
-      Photo.set_photos("Venue", photo_id, @venue.id)
-    else
+    if params[:photo] and params[:photo][:pictures_attributes]
+      params[:photo][:pictures_attributes].each do |pic|
+        photo_id = pic[1][:id]
+        Photo.set_photos("Venue", photo_id, @venue.id)
+      end
+    end
 
-      respond_to do |format|
-        if @venue.update_attributes(params[:venue])
-          format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @venue.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @venue.update_attributes(params[:venue])
+        format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @venue.errors, status: :unprocessable_entity }
       end
     end
 
@@ -172,6 +176,13 @@ class VenuesController < ApplicationController
     photo = Photo.find(params[:photo_id])
     photo.destroy
     render :json => {:status => 'ok'}
+  end
+
+  def upload_images
+      image = Photo.image_upload(params[:painting])
+      @painting = Photo.create_photos(image)
+      #photo_id = @painting.id
+      #raise photo_id.to_yaml
   end
 
   private

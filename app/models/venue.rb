@@ -4,7 +4,7 @@ class Venue < ParseResource::Base
 
   fields :address, :address2, :city, :coordinate, :description, :favoriteUsers, :image, :name, :phone, :photos, :rating, :reportFlag, :state, :tags, :thumbnail, :tips, :zip, :nameStripped, :websiteUrl
 
-  #validates_presence_of :name
+  validates_presence_of :name
   before_update :copy_venue
 
   #include Paperclip::Glue

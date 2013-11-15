@@ -23,6 +23,9 @@ Petparent::Application.routes.draw do
   resources :pets
   resources :lost_pets
   resources :events do
+    collection do
+      post 'upload_images'
+    end
     member do
       get 'delete_event_photo'
     end

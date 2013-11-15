@@ -4,6 +4,7 @@
   <% end %>
   <div class="actions">
     <%= link_to "remove", "#", :id => "#{p.id}", :class => "delete_photo" %>
+    <input type="hidden" name="photo[pictures_attributes][<%= p.id %>][id]" value="<%= p.id %>" />
     <!--<a rel="nofollow" data-method="delete" data-confirm="Are you sure?" href="/paintings/29">remove</a>-->
   </div>
 </div>
