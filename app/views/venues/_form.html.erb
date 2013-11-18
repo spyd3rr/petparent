@@ -39,20 +39,20 @@
      <%= f.number_field :zip,{:class => 'form-control',:placeholder => 'Enter zip'} %>
    </div>
 
-   <div class="form-group">
-    <%= f.label :coordinate %>
-    <div class="form-inline">
-      <div class="form-group">
-        <%= text_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter latitude' %>
-      </div>
-      <div class="form-group">
-        <%= text_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter longitude' %>
-      </div>
-      <div class="form-group">
-        <button type="button" class="btn btn-default" id="find">Find</button>
-      </div>
-    </div>
-  </div>
+   <!--<div class="form-group">-->
+    <!--<%#= f.label :coordinate %>-->
+    <!--<div class="form-inline">-->
+      <!--<div class="form-group">-->
+        <%= hidden_field_tag :latitude, (f.object.coordinate.latitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter latitude' %>
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <%= hidden_field_tag :longitude, (f.object.coordinate.longitude unless f.object.coordinate.nil?) , :size => '20',:class => 'form-control',:placeholder => 'Enter longitude' %>
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<button type="button" class="btn btn-default" id="find">Find</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
    <div class="form-group">
      <%= f.label :phone %>
      <%= f.text_field :phone,{:class => 'form-control',:placeholder => 'Enter phone'} %>
