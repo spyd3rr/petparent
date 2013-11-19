@@ -7,10 +7,13 @@
 
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag "navbar-static-top" %>
+  <%= stylesheet_link_tag "jcrop/jquery.Jcrop" %>
 
   <!--<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">-->
- <script src="/admin/ckeditor/ckeditor.js"></script>
+ <!--<script src="/admin/ckeditor/ckeditor.js"></script>-->
+  <%= javascript_include_tag "ckeditor/ckeditor" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "jcrop/jquery.Jcrop.min" %>
 </head>
 <body>
 

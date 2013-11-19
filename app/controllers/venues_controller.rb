@@ -76,7 +76,7 @@ class VenuesController < ApplicationController
 
     params[:venue][:nameStripped] = params[:venue][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:venue][:name]
     params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
-    params[:venue][:thumbnail] = params[:venue][:image]
+    #params[:venue][:thumbnail] = params[:venue][:image]
 
     respond_to do |format|
       if @venue.save
@@ -116,7 +116,7 @@ class VenuesController < ApplicationController
 
     params[:venue][:nameStripped] = params[:venue][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:venue][:name]
     params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
-    params[:venue][:thumbnail] = params[:venue][:image]
+    #params[:venue][:thumbnail] = params[:venue][:image]
 
 
     if params[:photo] and params[:photo][:pictures_attributes]

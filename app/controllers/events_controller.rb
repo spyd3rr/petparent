@@ -87,7 +87,7 @@ class EventsController < ApplicationController
 
     params[:event][:nameStripped] = params[:event][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:event][:name]
     params[:event][:image] = Photo.image_upload(params[:event][:image]) if params[:event][:image]
-    params[:event][:thumbnail] = params[:event][:image]
+    #params[:event][:thumbnail] = params[:event][:image]
 
 
     respond_to do |format|
@@ -141,7 +141,7 @@ class EventsController < ApplicationController
 
     params[:event][:nameStripped] = params[:event][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:event][:name]
     params[:event][:image] = Photo.image_upload(params[:event][:image]) if params[:event][:image]
-    params[:event][:thumbnail] = params[:event][:image]
+    #params[:event][:thumbnail] = params[:event][:image]
 
     #if params[:painting]
     #  image = Photo.image_upload(params[:painting])
