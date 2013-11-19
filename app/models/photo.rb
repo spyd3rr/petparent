@@ -32,7 +32,7 @@ class Photo < ParseResource::Base
   end
 
   def self.create_photos(image)
-    painting = Photo.create(:image => image)
+    painting = Photo.create(:image => image, :thumbnail => image)
     return painting
   end
 
