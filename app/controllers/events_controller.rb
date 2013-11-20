@@ -54,6 +54,10 @@ class EventsController < ApplicationController
     @photos = get_photos(@event.id)
   end
 
+  def event2
+    @event = Event.find(params[:id])
+  end
+
   # POST /events
   # POST /events.json
   def create

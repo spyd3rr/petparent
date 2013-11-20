@@ -48,13 +48,32 @@ class VenuesController < ApplicationController
   # GET /venues/1/edit
   def edit
     @venue = Venue.find(params[:id])
-    unless @venue
-      @venue = Venue.create#(:name => 'venue name')
-    end
+    #unless @venue
+    #  @venue = Venue.create
+    #end
     @tags = @venue.venue_tags
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)
+  end
+
+  def edit2
+    @venue = Venue.find(params[:id])
     @photos = get_photos(@venue.id)
+  end
+
+  def edit2update
+    @venue = Venue.find(params[:id])
+    #raise params.to_yaml
+    params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
+    if params[:photo] and params[:photo][:pictures_attributes]
+      params[:photo][:pictures_attributes].each do |pic|
+        photo_id = pic[1][:id]
+        Photo.set_photos("Venue", photo_id, @venue.id)
+      end
+    end
+    if @venue.update_attributes(params[:venue])
+      redirect_to @venue, notice: 'Venue was successfully updated.'
+    end
   end
 
   # POST /venues
@@ -75,20 +94,21 @@ class VenuesController < ApplicationController
     end
 
     params[:venue][:nameStripped] = params[:venue][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:venue][:name]
-    params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
-    #params[:venue][:thumbnail] = params[:venue][:image]
+    #params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
 
     respond_to do |format|
       if @venue.save
-        if params[:photo] and params[:photo][:pictures_attributes]
-          params[:photo][:pictures_attributes].each do |pic|
-            photo_id = pic[1][:id]
-            #raise photo_id.to_yaml
-            Photo.set_photos("Venue", photo_id, @venue.id)
-          end
-        end
-        format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
-        format.json { render json: @venue, status: :created, location: @venue }
+        #if params[:photo] and params[:photo][:pictures_attributes]
+        #  params[:photo][:pictures_attributes].each do |pic|
+        #    photo_id = pic[1][:id]
+        #    #raise photo_id.to_yaml
+        #    Photo.set_photos("Venue", photo_id, @venue.id)
+        #  end
+        #end
+
+        #format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
+        #format.json { render json: @venue, status: :created, location: @venue }
+        redirect_to edit2_venue_path, :id => @venue.id
       else
         format.html { render action: "new" }
         format.json { render json: @venue.errors, status: :unprocessable_entity }
@@ -115,21 +135,21 @@ class VenuesController < ApplicationController
     end
 
     params[:venue][:nameStripped] = params[:venue][:name].downcase.gsub(/[^0-9A-Za-z' ']/, '') if params[:venue][:name]
-    params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
-    #params[:venue][:thumbnail] = params[:venue][:image]
+    #params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
 
 
-    if params[:photo] and params[:photo][:pictures_attributes]
-      params[:photo][:pictures_attributes].each do |pic|
-        photo_id = pic[1][:id]
-        Photo.set_photos("Venue", photo_id, @venue.id)
-      end
-    end
+    #if params[:photo] and params[:photo][:pictures_attributes]
+    #  params[:photo][:pictures_attributes].each do |pic|
+    #    photo_id = pic[1][:id]
+    #    Photo.set_photos("Venue", photo_id, @venue.id)
+    #  end
+    #end
 
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
-        format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
-        format.json { head :no_content }
+        #format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
+        #format.json { head :no_content }
+        format.html { redirect_to edit2_venue_path, :id => @venue.id  }
       else
         format.html { render action: "edit" }
         format.json { render json: @venue.errors, status: :unprocessable_entity }

@@ -16,6 +16,8 @@ Petparent::Application.routes.draw do
     end
     member do
       get 'delete_venue_photo'
+      post 'edit2update'
+      get 'edit2'
     end
   end
   resources :tips

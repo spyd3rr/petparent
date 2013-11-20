@@ -1,6 +1,6 @@
-<div class="col-lg-2">
+<div class="col-lg-3">
   <% if p["thumbnail"] %>
-    <%= image_tag p["thumbnail"].url , :size => "50x50"%>
+    <%= image_tag p["image"].url , :size => "75x75"%>
   <% end %>
   <div class="actions">
     <%= link_to "remove", "#",:id => "#{p.id}", :class => "delete_photo" %>

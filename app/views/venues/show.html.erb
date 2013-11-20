@@ -97,9 +97,13 @@
     <p>
       <%= image_tag @venue.image, :id=>'jcrop_target' %>
     </p>
-    <!--<div style="width:100px;height:100px;overflow:hidden;margin-left:5px;">-->
-      <!--<%#= image_tag @venue.image, :id=>'preview' %>-->
-    <!--</div>-->
+    <h4>Preview:</h4>
+    <div style="width:100px; height:100px; overflow:hidden">
+      <%= image_tag @venue.image, :id => "preview" %>
+    </div>
+
+
+
   </div>
 
 </div>
@@ -113,26 +117,5 @@
   <div class="col-xs-10"></div>
 </div>
 
-<script language="Javascript">
-//    jQuery(function($) {
-//        $('#jcrop_target').Jcrop({
-//            onChange: showPreview,
-//            onSelect: showPreview,
-//            aspectRatio: 1
-//        });
-//    });
-//
-//    function showPreview(coords)
-//    {
-//        var rx = 100 / coords.w;
-//        var ry = 100 / coords.h;
-//
-//        $('#preview').css({
-//            width: Math.round(rx * 500) + 'px',
-//            height: Math.round(ry * 370) + 'px',
-//            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-//            marginTop: '-' + Math.round(ry * coords.y) + 'px'
-//        });
-//    }
-</script>
+
 

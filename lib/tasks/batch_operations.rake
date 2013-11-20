@@ -24,11 +24,11 @@ namespace :batch_operation do
 
   desc "update all thumbnails"
   task :update_thumbnails => :environment do
-    events = Event.all#Photo.page(1).per(1000).all
+    events = Photo.page(1).per(1000).all
     count = 0
     events.each do |e|
       begin
-        ee = Parse::Query.new("Event").eq("objectId", e.id).get.first
+        ee = Parse::Query.new("Photo").eq("objectId", e.id).get.first
         next if ee["image"].nil?
         e.image=ee["image"]
         e.save
