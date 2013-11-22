@@ -2,7 +2,7 @@ class Venue < ParseResource::Base
   #has_many :events, :dependent => :destroy
   #has_many :tags
 
-  fields :address, :address2, :city, :coordinate, :description, :favoriteUsers, :image, :name, :phone, :photos, :rating, :reportFlag, :state, :tags, :thumbnail, :tips, :zip, :nameStripped, :websiteUrl
+  fields :address, :address2, :city, :coordinate, :description, :favoriteUsers, :image, :name, :phone, :photos, :rating, :reportFlag, :state, :tags, :thumbnail, :tips, :zip, :nameStripped, :websiteUrl, :crop_x, :crop_y, :crop_w, :crop_h, :image1
 
   validates_presence_of :name
   before_update :copy_venue

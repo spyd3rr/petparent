@@ -1,0 +1,10 @@
+<div class="col-lg-3">
+  <% if p["thumbnail"] %>
+      <%= image_tag p["image"].url , :size => "75x75"%>
+  <% end %>
+  <div style="padding-left: 30px;">
+    <input type="radio" name="crop-radio-button" image_object="Photo" image_object_id = "<%= p.id %>"  value="<%= p["image"].url%>"/>
+  </div>
+</div>
+
+

@@ -1,120 +1,115 @@
 
-  <div class="row">
-    <p>Your venue has been submitted! You can also improve the venue listing by adding pictures and updating the primary image below.</p>
 
-    <div class="col-md-6">
-    <%= form_for @venue, :url => edit2update_venue_path, :method => :post, :html => { :multipart => true } do |f| %>
 
-        <%= f.hidden_field :id %>
+<div class="row">
+  <p>Your venue has been submitted! You can also improve the venue listing by adding pictures and updating the primary image below.</p>
 
-        <div class="form-group">
-          <%= f.label :cover_image %>
-          <%= image_tag @venue.image , :size => "100x100"%>
-          <%#= render "photos/photo" ,:p=>venue %>
-          <%= f.file_field :image %>
-        </div>
+  <%= form_for @venue, :url => edit2update_venue_path, :method => :post, :html => { :multipart => true } do |f| %>
 
+      <% if @venue.errors.any? %>
+          <div id="error_explanation" class="alert alert-warning">
+            <h2><%= pluralize(@venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
+
+            <ul>
+              <% @venue.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <%= f.hidden_field :id %>
+    <div class="row">
         <div style="background-color: #EEEEEE;padding-top: 48px;padding-bottom: 48px;">
             <div class="container">
             <%= f.label :image, "Images:" %>
             <div id="paintings" class="row col-lg-12">
               <% @photos.each do |p| %>
-                  <%= render "photos/photo" ,:p=>p %>
+                  <%= render "photos/photo2" ,:p=>p %>
               <% end %>
+              <div class="col-lg-3">
+                <%= image_tag @venue.image , :size => "75x75"%>
+                <div style="padding-left: 30px;">
+                  <input type="radio" name="crop-radio-button" image_object="Venue" image_object_id="<%= @venue.id %>" value="<%= @venue.image %>"/>
+                </div>
+              </div>
             </div>
             </div>
         </div>
-
-        <br><br>
-        <%= f.submit 'Submit', :class => 'btn btn-success', :id=>'venue_submit_geo' %>
-
-    <% end %>
     </div>
-    <div class="col-md-6">
-      <div class="row" style="min-height: 165px"></div>
-      <%= form_for @venue, :url => upload_images_venues_path, :method => :post, :html => {:id => "venue_multi_images",:multipart => true, :role => 'form'} do |f| %>
 
-          <div class="form-group" id="multi_image_upload">
-            <%= f.label :image, "Upload Images:" %>
-            <%= f.file_field :image, :multiple=> true, :name=> "painting" %>
-          </div>
+    <div class="row">
+      <br><br>
+      <div class="col-md-2">
+        <div style="width:100px;height:100px;overflow:hidden;margin-left:5px;" id="jcrop_preview_img">
+          <%= image_tag @venue.image, :id=>'preview' %>
+        </div>
+      </div>
+      <div class="col-md-6" id="jcrop_target_img">
+        <p>
+          <%= image_tag @venue.image, :id=>'jcrop_target' %>
+        </p>
 
-      <% end %>
-    </div>
-  </div>
-  <div class="row">
-    <br><br>
-    <div class="col-md-2">
-      <div style="width:100px;height:100px;overflow:hidden;margin-left:5px;">
-        <%= image_tag @venue.image, :id=>'preview' %>
       </div>
     </div>
-    <div class="col-md-6">
-      <p>
-        <%= image_tag @venue.image, :id=>'jcrop_target' %>
-      </p>
-      <br><br><br><br>
-    </div>
-  </div>
+      <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+          <%= f.hidden_field attribute, :id => attribute %>
+      <% end %>
 
-    <script type="text/javascript">
+      <%= hidden_field_tag "image_object", :id => "image_object", :value => "Venue" %>
+      <%= hidden_field_tag "image_object_id", :id => "image_object_id", :value => @venue.id %>
 
-        (function() {
-            jQuery(function() {
-                return $('#venue_multi_images').fileupload({
-                    dataType: "script",
-                    add: function(e, data) {
-                        var file, types;
-                        types = /(\.|\/)(gif|jpe?g|png)$/i;
-                        file = data.files[0];
-                        if (types.test(file.type) || types.test(file.name)) {
-                            data.submit();
-                        } else {
-                            return alert("" + file.name + " is not a gif, jpeg, or png image file");
-                        }
-                    }
-                });
-            });
+      <%= f.submit 'Submit', :class => 'btn btn-success', :id=>'venue_submit_geo' %>
+  <% end %>
+</div>
 
-        }).call(this);
-
-    </script>
-
-    <script type="text/javascript">
-        $("a.delete_photo").live('click', function () {
-            var id = $(this).attr('id');
-            var div=$(this).parent('div').parent('div')
-            $.get('delete_venue_photo',{photo_id:id},
-                    function(){
-                        div.remove();
-                    }
-            );
-            return false;
-        });
-    </script>
-
-    <script language="Javascript">
-        jQuery(function($) {
+<script type="text/javascript" charset="utf-8">
+    $(function() {
         $('#jcrop_target').Jcrop({
-        onChange: showPreview,
-        onSelect: showPreview,
-        aspectRatio: 1
+            onChange: update_crop,
+            onSelect: update_crop,
+            setSelect: [0, 0, 500, 500],
+            aspectRatio: 1
         });
-        });
+    });
 
-        function showPreview(coords)
-        {
-        var rx = 100 / coords.w;
-        var ry = 100 / coords.h;
-
+    function update_crop(coords) {
+        var rx = 100/coords.w;
+        var ry = 100/coords.h;
         $('#preview').css({
-        width: Math.round(rx * 500) + 'px',
-        height: Math.round(ry * 370) + 'px',
-        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+            width: Math.round(rx * $('#jcrop_target').width()) + 'px',
+            height: Math.round(ry * $('#jcrop_target').height()) + 'px',
+            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+            marginTop: '-' + Math.round(ry * coords.y) + 'px'
         });
-        }
-    </script>
+        var ratio = 1;//<%#= @venue.image.width %> / <%#= @venue.image.width %>;
+        $("#crop_x").val(Math.round(coords.x * ratio));
+        $("#crop_y").val(Math.round(coords.y * ratio));
+        $("#crop_w").val(Math.round(coords.w * ratio));
+        $("#crop_h").val(Math.round(coords.h * ratio));
+    }
+
+    $("input:radio[name=crop-radio-button]").click(function() {
+        var image_object = $(this).attr("image_object");
+        var image_object_id = $(this).attr("image_object_id");
+        console.log(image_object + ' ' + image_object_id);
+        $("#image_object").val(image_object);
+        $("#image_object_id").val(image_object_id);
+
+        var src = $(this).val();
+        $("#jcrop_target_img").html(src ? "<img src='" + src + "' id='jcrop_target'>" : "");
+        $("#jcrop_preview_img").html(src ? "<img src='" + src + "' id='preview'>" : "");
+
+        $('#jcrop_target').Jcrop({
+            onChange: update_crop,
+            onSelect: update_crop,
+            setSelect: [0, 0, 500, 500],
+            aspectRatio: 1
+        });
+
+    });
+
+</script>
 
 
 
