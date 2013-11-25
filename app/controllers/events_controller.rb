@@ -45,17 +45,40 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    unless @event
-      @event = Event.create#(:name => 'event name')
-    end
+    #unless @event
+    #  @event = Event.create#(:name => 'event name')
+    #end
     @tags = @event.event_tags
     _tags = Tag.all
     @tag_names = _tags.collect(&:name)
     @photos = get_photos(@event.id)
   end
 
-  def event2
+  def edit2
     @event = Event.find(params[:id])
+    @photos = get_photos(@event.id)
+  end
+
+  def edit2update
+    #raise params.to_yaml
+    params[:event][:crop_x] = params[:event][:crop_x].to_f
+    params[:event][:crop_y] = params[:event][:crop_y].to_f
+    params[:event][:crop_w] = params[:event][:crop_w].to_f
+    params[:event][:crop_h] = params[:event][:crop_h].to_f
+
+    if params[:image_object_id] and params[:image_object_id]!=""
+      ee = Parse::Query.new(params[:image_object]).eq("objectId", params[:image_object_id]).get.first
+      params[:event][:image1] = ee["image"] unless ee["image"].nil?
+      #params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
+    end
+
+    @event = Event.find(params[:id])
+    if @event.update_attributes(params[:event])
+      redirect_to @event, notice: 'Event was successfully updated.'
+    else
+      @photos = get_photos(@event.id)
+      render action: "edit2"
+    end
   end
 
   # POST /events
@@ -102,8 +125,9 @@ class EventsController < ApplicationController
             Photo.set_photos("Event", photo_id, @event.id)
           end
         end
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
-        format.json { render json: @event, status: :created, location: @event }
+        #format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        #format.json { render json: @event, status: :created, location: @event }
+        format.html { redirect_to edit2_event_path(@event), :id => @event.id  }
       else
         format.html { render action: "new" }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -163,8 +187,9 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-        format.json { head :no_content }
+        #format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        #format.json { head :no_content }
+        format.html { redirect_to edit2_event_path(@event), :id => @event.id  }
       else
         format.html { render action: "edit" }
         format.json { render json: @event.errors, status: :unprocessable_entity }

@@ -2,16 +2,16 @@
 
 
 <div class="row">
-  <p>Your venue has been submitted! You can also improve the venue listing by adding pictures and updating the primary image below.</p>
+  <p>Your event has been submitted! You can also improve the event listing by adding pictures and updating the primary image below.</p>
 
-  <%= form_for @venue, :url => edit2update_venue_path, :method => :post, :html => { :multipart => true } do |f| %>
+  <%= form_for @event, :url => edit2update_event_path, :method => :post, :html => { :multipart => true } do |f| %>
 
-      <% if @venue.errors.any? %>
+      <% if @event.errors.any? %>
           <div id="error_explanation" class="alert alert-warning">
-            <h2><%= pluralize(@venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
+            <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
             <ul>
-              <% @venue.errors.full_messages.each do |msg| %>
+              <% @event.errors.full_messages.each do |msg| %>
                   <li><%= msg %></li>
               <% end %>
             </ul>
@@ -28,9 +28,9 @@
                   <%= render "photos/photo2" ,:p=>p %>
               <% end %>
               <div class="col-lg-3">
-                <%= image_tag @venue.image , :size => "75x75"%>
+                <%= image_tag @event.image , :size => "75x75"%>
                 <div style="padding-left: 30px;">
-                  <input type="radio" name="crop-radio-button" image_object="Venue" image_object_id="<%= @venue.id %>" value="<%= @venue.image %>"/>
+                  <input type="radio" name="crop-radio-button" image_object="Event" image_object_id="<%= @event.id %>" value="<%= @event.image %>"/>
                 </div>
               </div>
             </div>
@@ -42,12 +42,12 @@
       <br><br>
       <div class="col-md-2">
         <div style="width:100px;height:100px;overflow:hidden;margin-left:5px;" id="jcrop_preview_img">
-          <%= image_tag @venue.thumbnail, :id=>'preview' %>
+          <%= image_tag @event.thumbnail, :id=>'preview' %>
         </div>
       </div>
       <div class="col-md-6" id="jcrop_target_img">
         <p>
-          <%= image_tag @venue.image, :id=>'jcrop_target' %>
+          <%= image_tag @event.image, :id=>'jcrop_target' %>
         </p>
 
       </div>
@@ -56,13 +56,13 @@
           <%= f.hidden_field attribute, :id => attribute %>
       <% end %>
 
-      <%#= hidden_field_tag "image_object", :id => "image_object", :value => "Venue" %>
+      <%#= hidden_field_tag "image_object", :id => "image_object", :value => "Event" %>
       <input type="hidden" name="image_object" id="image_object">
-      <%#= hidden_field_tag "image_object_id", :id => "image_object_id", :value => "#{@venue.id}" %>
+      <%#= hidden_field_tag "image_object_id", :id => "image_object_id", :value => "#{@event.id}" %>
       <input type="hidden" name="image_object_id" id="image_object_id">
-      <%#= raise @venue.id %>
+      <%#= raise @event.id %>
 
-      <%= f.submit 'Submit', :class => 'btn btn-success', :id=>'venue_submit_geo' %>
+      <%= f.submit 'Submit', :class => 'btn btn-success', :id=>'event_submit_geo' %>
   <% end %>
 </div>
 
@@ -85,7 +85,7 @@
             marginLeft: '-' + Math.round(rx * coords.x) + 'px',
             marginTop: '-' + Math.round(ry * coords.y) + 'px'
         });
-        var ratio = 1;//<%#= @venue.image.width %> / <%#= @venue.image.width %>;
+        var ratio = 1;//<%#= @event.image.width %> / <%#= @event.image.width %>;
         $("#crop_x").val(Math.round(coords.x * ratio));
         $("#crop_y").val(Math.round(coords.y * ratio));
         $("#crop_w").val(Math.round(coords.w * ratio));

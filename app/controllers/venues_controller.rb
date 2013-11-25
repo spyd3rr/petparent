@@ -78,9 +78,11 @@ class VenuesController < ApplicationController
     params[:venue][:crop_w] = params[:venue][:crop_w].to_f
     params[:venue][:crop_h] = params[:venue][:crop_h].to_f
 
-    ee = Parse::Query.new(params[:image_object]).eq("objectId", params[:image_object_id]).get.first
-    params[:venue][:image1] = ee["image"] unless ee["image"].nil?
-    #params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
+    if params[:image_object_id] and params[:image_object_id]!=""
+      ee = Parse::Query.new(params[:image_object]).eq("objectId", params[:image_object_id]).get.first
+      params[:venue][:image1] = ee["image"] unless ee["image"].nil?
+      #params[:venue][:image] = Photo.image_upload(params[:venue][:image]) if params[:venue][:image]
+    end
 
     @venue = Venue.find(params[:id])
     if @venue.update_attributes(params[:venue])
@@ -122,7 +124,7 @@ class VenuesController < ApplicationController
         end
         #format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
         #format.json { render json: @venue, status: :created, location: @venue }
-        format.html { redirect_to edit2_venue_path, :id => @venue.id  }
+        format.html { redirect_to edit2_venue_path(@venue), :id => @venue.id  }
       else
         format.html { render action: "new" }
         format.json { render json: @venue.errors, status: :unprocessable_entity }
@@ -163,7 +165,7 @@ class VenuesController < ApplicationController
       if @venue.update_attributes(params[:venue])
         #format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
         #format.json { head :no_content }
-        format.html { redirect_to edit2_venue_path, :id => @venue.id  }
+        format.html { redirect_to edit2_venue_path(@venue), :id => @venue.id  }
       else
         format.html { render action: "edit" }
         format.json { render json: @venue.errors, status: :unprocessable_entity }
