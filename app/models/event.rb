@@ -1,6 +1,6 @@
 class Event < ParseResource::Base
 
-  fields :address, :address2, :city, :coordinate, :description, :endDate, :image, :name, :price, :reportFlag, :startDate, :state, :tags, :thumbnail, :user, :venue, :zip, :websiteUrl, :ticketingUrl, :nameStripped, :crop_x, :crop_y, :crop_w, :crop_h, :image1
+  fields :address, :address2, :city, :coordinate, :content, :endDate, :image, :name, :price, :reportFlag, :startDate, :state, :tags, :thumbnail, :user, :venue, :zip, :websiteUrl, :ticketingUrl, :nameStripped, :crop_x, :crop_y, :crop_w, :crop_h, :image1
 
   validates_presence_of :name
 

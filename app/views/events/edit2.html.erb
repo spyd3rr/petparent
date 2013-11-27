@@ -41,13 +41,13 @@
     <div class="row">
       <br><br>
       <div class="col-md-2">
-        <div style="width:100px;height:100px;overflow:hidden;margin-left:5px;" id="jcrop_preview_img">
+        <div style="width:132px;height:132px;overflow:hidden;margin-left:5px;" id="jcrop_preview_img">
           <%= image_tag @event.thumbnail, :id=>'preview' %>
         </div>
       </div>
       <div class="col-md-6" id="jcrop_target_img">
         <p>
-          <%= image_tag @event.image, :id=>'jcrop_target' %>
+          <%= image_tag '', :id=>'jcrop_target', :alt=>'' %>
         </p>
 
       </div>

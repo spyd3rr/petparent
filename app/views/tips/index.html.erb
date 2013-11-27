@@ -10,7 +10,6 @@
 
 <table class="table table-bordered table-striped">
   <tr>
-    <th><%= sortable "description" %></th>
     <th><%= sortable "message" %></th>
     <th><%= sortable "reportflag" %></th>
     <th><%= sortable "user" %></th>
@@ -22,7 +21,6 @@
 
 <% @tips.each do |tip| %>
   <tr>
-    <td><%= tip.description %></td>
     <td><%= tip.message %></td>
     <td><%= tip.reportFlag %></td>
     <td><%= tip.user.firstName unless tip.user.nil? %></td>

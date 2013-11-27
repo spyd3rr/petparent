@@ -12,7 +12,7 @@
   <tr>
     <th><%= sortable "name" %></th>
     <th><%= sortable "breed" %></th>
-    <th><%= sortable "description" %></th>
+    <th><%= sortable "content" %></th>
    <!-- <th>Mainphoto</th>
     <th>Photos</th>-->
     <th><%= sortable "reportflag" %></th>
@@ -25,7 +25,7 @@
   <tr>
     <td><%= link_to pet.name, edit_pet_path(pet) unless pet.name.nil? %></td>
     <td><%= pet.breed %></td>
-    <td><%= pet.description %></td>
+    <td><%= pet.content %></td>
     <!--<td><%#= pet.mainPhoto %></td>
     <td><%#= pet.photos %></td>-->
     <td><%= pet.reportFlag %></td>
