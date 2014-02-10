@@ -96,6 +96,8 @@ class EventsController < ApplicationController
     if params[:venue_id]
       venue = Parse::Query.new("Venue").eq("objectId", params[:venue_id]).get.first
       params[:event][:venue]=venue.pointer if venue
+      puts "Associating with #{venue.name}"
+      puts "Associating coordinate #{venue.coordinate}"
       @event.coordinate = venue.coordinate
     end
 
